@@ -26,7 +26,7 @@ module "k3s" {
         # TODO: Try to use tls_private_key?
         #private_key = trimspace(tls_private_key.ed25519_provisioning.private_key_pem)
         private_key = file("${path.module}/meshdb${var.meshdb_env_name}")
-        user        = "debian"
+        user        = var.meshdb_local_user
       }
       flags = [
         "--write-kubeconfig-mode 644",
@@ -44,7 +44,7 @@ module "k3s" {
         # TODO: Try to use tls_private_key?
         #private_key = trimspace(tls_private_key.ed25519_provisioning.private_key_pem)
         private_key = file("${path.module}/meshdb${var.meshdb_env_name}")
-        user        = "debian"
+        user        = var.meshdb_local_user
       }
     }
   }

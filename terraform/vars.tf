@@ -11,77 +11,27 @@ variable "meshdb_proxmox_token_id" {
 variable "meshdb_proxmox_token_secret" {
   type        = string
   description = "proxmox server token secret"
+  sensitive   = true
 }
 
-variable "meshdb_proxmox_node" {
+variable "meshdb_prod_proxmox_host" {
   type        = string
-  description = "target node on the proxmox server"
-  default     = "jon"
+  description = "ip/domain of the proxmox server"
 }
 
-variable "meshdb_proxmox_template_image" {
+variable "meshdb_prod_proxmox_token_id" {
   type        = string
-  description = "name of the template you have already setup in proxmox"
-  default     = "ubuntu-cloud"
+  description = "proxmox server token id"
 }
 
-variable "meshdb_proxmox_storage_location" {
+variable "meshdb_prod_proxmox_token_secret" {
   type        = string
-  description = "target resource pool on the proxmox server"
-  default     = "local-lvm"
-}
-
-variable "meshdb_env_name" {
-  type        = string
-  description = "name of the environment(dev0, dev1, stage, prod)"
-}
-
-variable "meshdb_local_user" {
-  type        = string
-  description = "local user username"
-  default     = "ubuntu"
+  description = "proxmox server token secret"
+  sensitive   = true
 }
 
 variable "meshdb_local_password" {
   type        = string
   description = "password for the local user"
   sensitive   = true
-}
-
-variable "meshdb_mgr_ips" {
-  description = "static IPs to use for managers"
-}
-
-variable "meshdb_ips" {
-  description = "static IPs to use for nodes"
-}
-
-variable "meshdb_lb_ip" {
-  description = "static IP to use for k8s lb"
-}
-
-variable "meshdb_gateway" {
-  description = "default gateway to use for nodes"
-  default     = "10.70.90.1"
-}
-
-variable "meshdb_networkrange" {
-  description = "network range to use for nodes"
-  default     = "24"
-}
-
-variable "meshdb_net_block" {
-  description = "network range to use for intneral networking"
-  default     = "10.70.90.0"
-}
-
-
-variable "meshdb_external_ip" {
-  type        = string
-  description = "external ip for meshdb, assigned to the lb vm"
-}
-
-variable "meshdb_fqdn" {
-  type        = string
-  description = "fqdn meshdb should be responding to"
 }
