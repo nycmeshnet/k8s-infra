@@ -35,3 +35,9 @@ variable "meshdb_local_password" {
   description = "password for the local user"
   sensitive   = true
 }
+
+variable "k3s_token" {
+  type        = string
+  description = "token for the k3s cluster"
+  sensitive   = true
+}
