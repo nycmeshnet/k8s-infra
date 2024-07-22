@@ -4,6 +4,8 @@
     - role: meshdb-k8s-node
     - role: k3s.orchestration.prereq # k3s-ansible
     - role: k3s.orchestration.k3s_agent # k3s-ansible
+  vars:
+    k3s_version: v1.30.2+k3s2
 
 - hosts: mgrs 
   become: true
@@ -11,6 +13,8 @@
     - role: meshdb-mgr
     - role: k3s.orchestration.prereq # k3s-ansible
     - role: k3s.orchestration.k3s_server # k3s-ansible
+  vars:
+    k3s_version: v1.30.2+k3s2
 
 - hosts: lb
   become: true
