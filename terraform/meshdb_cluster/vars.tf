@@ -74,3 +74,9 @@ variable "vm_nic" {
   description = "nic for the vms"
   default     = "vmbr0"
 }
+
+variable "k3s_token" {
+  type        = string
+  description = "token for the k3s cluster"
+  sensitive   = true
+}
