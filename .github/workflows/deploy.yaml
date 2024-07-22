@@ -96,5 +96,5 @@ jobs:
       
       - name: Run playbook
         if: github.ref == 'refs/heads/james/move' && github.event_name == 'push'
-        run: sleep 45 && export PATH="$HOME/.local/bin:$PATH" && ansible-playbook -i inventory.yaml k8s_infra.yaml
+        run: sleep 10 && export PATH="$HOME/.local/bin:$PATH" && ansible-playbook -i inventory.yaml k8s_infra.yaml
         working-directory: ./ansible/

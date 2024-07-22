@@ -3,7 +3,7 @@ resource "ansible_group" "mgrs" {
   name = "mgrs"
   variables = {
     ansible_user                 = var.meshdb_local_user
-    ansible_ssh_private_key_file = "../tf/${path.module}/meshdb${var.meshdb_env_name}"
+    ansible_ssh_private_key_file = "../terraform/${path.module}/meshdb${var.meshdb_env_name}"
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
   }
 }
@@ -12,7 +12,7 @@ resource "ansible_group" "workers" {
   name = "workers"
   variables = {
     ansible_user                 = var.meshdb_local_user
-    ansible_ssh_private_key_file = "../tf/${path.module}/meshdb${var.meshdb_env_name}"
+    ansible_ssh_private_key_file = "../terraform/${path.module}/meshdb${var.meshdb_env_name}"
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
   }
 }
@@ -21,7 +21,7 @@ resource "ansible_group" "lb" {
   name = "lb"
   variables = {
     ansible_user                 = var.meshdb_local_user
-    ansible_ssh_private_key_file = "../tf/${path.module}/meshdb${var.meshdb_env_name}"
+    ansible_ssh_private_key_file = "../terraform/${path.module}/meshdb${var.meshdb_env_name}"
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
     EXTERNAL_LISTEN_IP           = var.meshdb_external_ip
     LB_HOSTNAME                  = "k8s-lb-${var.meshdb_env_name}"
