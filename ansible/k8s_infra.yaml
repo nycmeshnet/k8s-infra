@@ -7,6 +7,7 @@
   vars:
     k3s_version: v1.30.2+k3s2
     api_endpoint: "{{ K3S_API_ENDPOINT }}"
+    token: "{{ K3S_TOKEN }}"
 
 - hosts: mgrs 
   become: true
@@ -17,6 +18,7 @@
   vars:
     k3s_version: v1.30.2+k3s2
     api_endpoint: "{{ K3S_API_ENDPOINT }}"
+    token: "{{ K3S_TOKEN }}"
 
 - hosts: lb
   become: true
