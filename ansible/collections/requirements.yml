@@ -1,4 +1,5 @@
 collections:
-  - name: git+https://github.com/k3s-io/k3s-ansible.git
+  - name: k3s.orchestration
+    source: git+https://github.com/k3s-io/k3s-ansible.git
     type: git
     version: master
