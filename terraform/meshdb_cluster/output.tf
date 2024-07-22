@@ -19,7 +19,7 @@ output "lb_ip" {
   }
 }
 
-resource "local_file" "kubeconfig" {
-  content  = module.k3s.kube_config
-  filename = "${path.module}/k3s.${var.meshdb_env_name}.yaml"
-}
+#resource "local_file" "kubeconfig" {
+#  content  = module.k3s.kube_config
+#  filename = "${path.module}/k3s.${var.meshdb_env_name}.yaml"
+#}

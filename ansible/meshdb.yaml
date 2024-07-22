@@ -1,11 +1,18 @@
 - hosts: mgrs:workers 
+  become: true
   roles:
     - role: meshdb-k8s-node
+    - role: prereq # k3s-ansible
+    - role: k3s_agent # k3s-ansible
 
 - hosts: mgrs 
+  become: true
   roles:
     - role: meshdb-mgr
+    - role: prereq # k3s-ansible
+    - role: k3s_server # k3s-ansible
 
 - hosts: lb
+  become: true
   roles:
     - role: k8s-lb
