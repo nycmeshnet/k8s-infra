@@ -5,9 +5,7 @@ resource "ansible_group" "mgrs" {
     ansible_user                 = var.meshdb_local_user
     ansible_ssh_private_key_file = "../terraform/${path.module}/meshdb${var.meshdb_env_name}"
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-    variables = {
-      K3S_TOKEN = var.k3s_token
-    }
+    K3S_TOKEN = var.k3s_token
   }
 }
 
