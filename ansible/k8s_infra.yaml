@@ -6,7 +6,7 @@
     - role: k3s.orchestration.k3s_agent # k3s-ansible
   vars:
     k3s_version: v1.30.2+k3s2
-    api_endpoint: "{{ hostvars[groups['mgrs'][0]]['ansible_host'] }}"
+    api_endpoint: "{{ K3S_API_ENDPOINT }}"
 
 - hosts: mgrs 
   become: true
@@ -16,7 +16,7 @@
     - role: k3s.orchestration.k3s_server # k3s-ansible
   vars:
     k3s_version: v1.30.2+k3s2
-    api_endpoint: "{{ hostvars[groups['mgrs'][0]]['ansible_host'] }}"
+    api_endpoint: "{{ K3S_API_ENDPOINT }}"
 
 - hosts: lb
   become: true

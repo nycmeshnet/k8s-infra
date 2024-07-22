@@ -40,12 +40,18 @@ resource "ansible_host" "meshdbmgr" {
   count  = 1
   name   = var.meshdb_mgr_ips[count.index]
   groups = [ansible_group.mgrs.name]
+  variables = {
+    K3S_API_ENDPOINT = var.meshdb_mgr_ips[0]
+  }
 }
 
 resource "ansible_host" "meshdbnode" {
   count  = 3
   name   = var.meshdb_ips[count.index]
   groups = [ansible_group.workers.name]
+  variables = {
+    K3S_API_ENDPOINT = var.meshdb_mgr_ips[0]
+  }
 }
 
 resource "ansible_host" "k8slb" {
