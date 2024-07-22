@@ -13,13 +13,13 @@ permissions: read-all
 
 env:
   # Secrets
-  TF_VAR_meshdb_prod_proxmox_host: ${{ secrets.MESHDB_PROD_PROXMOX_HOST }}
-  TF_VAR_meshdb_prod_proxmox_token_id: ${{ secrets.meshdb_prod_proxmox_token_id }}
-  TF_VAR_meshdb_prod_proxmox_token_secret: ${{ secrets.meshdb_prod_proxmox_token_secret }}
-  TF_VAR_meshdb_proxmox_host: ${{ secrets.MESHDB_PROXMOX_HOST }}
-  TF_VAR_meshdb_proxmox_token_id: ${{ secrets.meshdb_proxmox_token_id }}
-  TF_VAR_meshdb_proxmox_token_secret: ${{ secrets.meshdb_proxmox_token_secret }}
-  TF_VAR_meshdb_local_password: ${{ secrets.MESHDB_LOCAL_PASSWORD }}
+  TF_VAR_meshdb_prod_proxmox_host: ${{ secrets.TF_VAR_MESHDB_PROD_PROXMOX_HOST }}
+  TF_VAR_meshdb_prod_proxmox_token_id: ${{ secrets.TF_VAR_MESHDB_PROD_PROXMOX_TOKEN_ID }}
+  TF_VAR_meshdb_prod_proxmox_token_secret: ${{ secrets.TF_VAR_MESHDB_PROD_PROXMOX_TOKEN_SECRET }}
+  TF_VAR_meshdb_proxmox_host: ${{ secrets.TF_VAR_MESHDB_PROXMOX_HOST }}
+  TF_VAR_meshdb_proxmox_token_id: ${{ secrets.TF_VAR_MESHDB_PROXMOX_TOKEN_ID }}
+  TF_VAR_meshdb_proxmox_token_secret: ${{ secrets.TF_VAR_MESHDB_PROXMOX_TOKEN_SECRET }}
+  TF_VAR_meshdb_local_password: ${{ secrets.TF_VAR_MESHDB_LOCAL_PASSWORD }}
   # Credentials for deployment to AWS
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
