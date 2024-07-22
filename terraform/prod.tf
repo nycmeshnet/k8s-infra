@@ -11,6 +11,7 @@ module "prod_meshdb_cluster" {
   meshdb_env_name                 = "prod1"
   meshdb_local_user               = "debian"
   meshdb_local_password           = var.meshdb_local_password
+  vm_nic                          = "vmbr0v32"
   meshdb_mgr_ips = [
     "10.70.90.152",
   ]

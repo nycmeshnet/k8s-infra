@@ -32,7 +32,7 @@ resource "proxmox_vm_qemu" "meshdbmgr" {
   }
 
   network {
-    bridge = "vmbr0"
+    bridge = var.vm_nic
     model  = "virtio"
   }
 

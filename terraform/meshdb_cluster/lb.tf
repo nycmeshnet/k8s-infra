@@ -30,7 +30,7 @@ resource "proxmox_vm_qemu" "k8s-lb" {
   }
 
   network {
-    bridge = "vmbr0"
+    bridge = var.vm_nic
     model  = "virtio"
   }
 

@@ -68,3 +68,9 @@ variable "meshdb_fqdn" {
   type        = string
   description = "fqdn meshdb should be responding to"
 }
+
+variable "vm_nic" {
+  type        = string
+  description = "nic for the vms"
+  default     = "vmbr0"
+}
