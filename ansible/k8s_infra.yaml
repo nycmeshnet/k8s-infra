@@ -11,6 +11,7 @@
     token: "{{ K3S_TOKEN }}"
     extra_server_args: ""
     extra_agent_args: ""
+    server_group: "mgrs"
 
 - hosts: workers 
   become: true
