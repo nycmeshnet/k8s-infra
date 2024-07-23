@@ -66,6 +66,19 @@
     dest: /etc/haproxy/haproxy.cfg
   become: true
 
+- name: Temporarily disable ssl (no cert yet)
+  ansible.builtin.lineinfile:
+    path: /etc/haproxy/haproxy.cfg
+    search_string: /etc/haproxy/ssl/
+    line: "#no ssl yet"
+  become: true
+
+- name: Create ssl certs directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/haproxy/ssl
+    state: directory
+    mode: '0755'
+
 - name: Iptables rules
   ansible.builtin.template:
     src: ../templates/iptables.j2
@@ -129,6 +142,19 @@
 - name: Restart and enable cron service
   ansible.builtin.service:
     name: cron
+    state: restarted
+    enabled: true
+  become: true
+
+- name: Re-apply config template haproxy (because certs should exist)
+  ansible.builtin.template:
+    src: ../templates/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+  become: true
+
+- name: Restart and enable haproxy service
+  ansible.builtin.service:
+    name: haproxy
     state: restarted
     enabled: true
   become: true
