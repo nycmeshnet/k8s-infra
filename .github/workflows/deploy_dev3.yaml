@@ -23,7 +23,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   # S3 bucket for the Terraform state
   BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE}}
-  TF_VAR_env_name: ${{ var.ENV_NAME}}
+  TF_VAR_env_name: ${{ vars.ENV_NAME}}
 
 jobs:
   deploy:
