@@ -1,6 +1,5 @@
 terraform {
   backend "s3" {
-    key    = "terraform/state/k8s-infra-${var.env_name}.tfstate"
     region = "us-east-2"
   }
   required_providers {
