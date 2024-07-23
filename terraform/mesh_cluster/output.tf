@@ -15,11 +15,6 @@ output "worker_ips" {
 output "lb_ip" {
   description = "IP address of the lb"
   value = {
-    "0" = var.meshdb_lb_ip
+    "0" = var.mesh_lb_ip
   }
 }
-
-#resource "local_file" "kubeconfig" {
-#  content  = module.k3s.kube_config
-#  filename = "${path.module}/k3s.${var.meshdb_env_name}.yaml"
-#}

@@ -1,65 +1,65 @@
-variable "meshdb_proxmox_node" {
+variable "mesh_proxmox_node" {
   type        = string
   description = "target node on the proxmox server"
 }
 
-variable "meshdb_proxmox_template_image" {
+variable "mesh_proxmox_template_image" {
   type        = string
   description = "name of the template you have already setup in proxmox"
   default     = "debian-cloud"
 }
 
-variable "meshdb_proxmox_storage_location" {
+variable "mesh_proxmox_storage_location" {
   type        = string
   description = "target resource pool on the proxmox server"
   default     = "local-lvm"
 }
 
-variable "meshdb_env_name" {
+variable "mesh_env_name" {
   type        = string
   description = "name of the environment(dev0, dev1, stage, prod)"
 }
 
-variable "meshdb_local_user" {
+variable "mesh_local_user" {
   type        = string
   description = "local user username"
   default     = "debian"
 }
 
-variable "meshdb_local_password" {
+variable "mesh_local_password" {
   type        = string
   description = "password for the local user"
   sensitive   = true
 }
 
-variable "meshdb_mgr_ips" {
+variable "mesh_mgr_ips" {
   description = "static IPs to use for managers"
 }
 
-variable "meshdb_ips" {
+variable "mesh_ips" {
   description = "static IPs to use for nodes"
 }
 
-variable "meshdb_lb_ip" {
+variable "mesh_lb_ip" {
   description = "static IP to use for k8s lb"
 }
 
-variable "meshdb_gateway" {
+variable "mesh_gateway" {
   description = "default gateway to use for nodes"
   default     = "10.70.90.1"
 }
 
-variable "meshdb_networkrange" {
+variable "mesh_networkrange" {
   description = "network range to use for nodes"
   default     = "24"
 }
 
-variable "meshdb_net_block" {
+variable "mesh_net_block" {
   description = "network range to use for intneral networking"
   default     = "10.70.90.0"
 }
 
-variable "meshdb_external_ip" {
+variable "mesh_external_ip" {
   type        = string
   description = "external ip for meshdb, assigned to the lb vm"
 }
