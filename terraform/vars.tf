@@ -14,12 +14,6 @@ variable "meshdb_proxmox_token_secret" {
   sensitive   = true
 }
 
-variable "meshdb_local_password" {
-  type        = string
-  description = "password for the local user"
-  sensitive   = true
-}
-
 variable "k3s_token" {
   type        = string
   description = "token for the k3s cluster"
@@ -101,10 +95,4 @@ variable "vm_nic" {
   type        = string
   description = "nic for the vms"
   default     = "vmbr0"
-}
-
-variable "k3s_token" {
-  type        = string
-  description = "token for the k3s cluster"
-  sensitive   = true
 }
