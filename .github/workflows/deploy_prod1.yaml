@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Prod 1
 
 on:
   pull_request:
@@ -13,9 +13,6 @@ permissions: read-all
 
 env:
   # Secrets
-  TF_VAR_meshdb_prod_proxmox_host: ${{ secrets.TF_VAR_MESHDB_PROD_PROXMOX_HOST }}
-  TF_VAR_meshdb_prod_proxmox_token_id: ${{ secrets.TF_VAR_MESHDB_PROD_PROXMOX_TOKEN_ID }}
-  TF_VAR_meshdb_prod_proxmox_token_secret: ${{ secrets.TF_VAR_MESHDB_PROD_PROXMOX_TOKEN_SECRET }}
   TF_VAR_meshdb_proxmox_host: ${{ secrets.TF_VAR_MESHDB_PROXMOX_HOST }}
   TF_VAR_meshdb_proxmox_token_id: ${{ secrets.TF_VAR_MESHDB_PROXMOX_TOKEN_ID }}
   TF_VAR_meshdb_proxmox_token_secret: ${{ secrets.TF_VAR_MESHDB_PROXMOX_TOKEN_SECRET }}
@@ -26,11 +23,12 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   # S3 bucket for the Terraform state
   BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE}}
+  TF_VAR_env_name: ${{ vars.ENV_NAME}}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: prod1
     steps:
       - name: Checkout
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # @v4
@@ -46,10 +44,16 @@ jobs:
         uses: hashicorp/setup-terraform@651471c36a6092792c552e8b1bef71e592b462d8 # @v3
         with:
           terraform_version: 1.8.3
+      
+      - name: Setup backend
+        run: |
+          echo "bucket = \"${{ secrets.BUCKET_TF_STATE }}\"" > backend.tfvars
+          echo "key    = \"terraform/state/k8s-infra-${{ vars.ENV_NAME }}.tfstate\"" >> backend.tfvars
+        working-directory: ./terraform/
 
       - name: Terraform init
         id: init
-        run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
+        run: terraform init -backend-config=backend.tfvars
         working-directory: ./terraform/
 
       - name: Terraform format
@@ -75,7 +79,7 @@ jobs:
       - name: Terraform plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false
+        run: terraform plan -no-color -input=false -var-file=${{ vars.ENV_NAME }}.tfvars
         continue-on-error: true
         working-directory: ./terraform/
 
@@ -86,13 +90,11 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/james/move' && github.event_name == 'push'
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > meshdb_cluster/meshdbprod1
-          echo "${{ secrets.SSH_PUBLIC_KEY }}" > meshdb_cluster/meshdbprod1.pub
-          chmod 600 meshdb_cluster/meshdbprod1
-          chmod 600 meshdb_cluster/meshdbprod1.pub
-          cp meshdb_cluster/meshdbprod1 meshdb_cluster/meshdbdev3
-          cp meshdb_cluster/meshdbprod1.pub meshdb_cluster/meshdbdev3.pub
-          terraform apply -auto-approve -input=false
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > meshdb_cluster/meshdb${{ vars.ENV_NAME }}
+          echo "${{ secrets.SSH_PUBLIC_KEY }}" > meshdb_cluster/meshdb${{ vars.ENV_NAME }}.pub
+          chmod 600 meshdb_cluster/meshdb${{ vars.ENV_NAME }}
+          chmod 600 meshdb_cluster/meshdb${{ vars.ENV_NAME }}.pub
+          terraform apply -auto-approve -input=false -var-file=${{ vars.ENV_NAME }}.tfvars
         working-directory: ./terraform/
       
       - name: Run playbook
