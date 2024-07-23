@@ -44,10 +44,16 @@ jobs:
         uses: hashicorp/setup-terraform@651471c36a6092792c552e8b1bef71e592b462d8 # @v3
         with:
           terraform_version: 1.8.3
+      
+      - name: Setup backend
+        run: |
+          echo "bucket = \"${{ secrets.BUCKET_TF_STATE }}\"" > backend.tfvars
+          echo "key    = \"terraform/state/k8s-infra-${{ vars.ENV_NAME }}.tfstate\"" >> backend.tfvars
+        working-directory: ./terraform/
 
       - name: Terraform init
         id: init
-        run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
+        run: terraform init -backend-config=backend.tfvars
         working-directory: ./terraform/
 
       - name: Terraform format
