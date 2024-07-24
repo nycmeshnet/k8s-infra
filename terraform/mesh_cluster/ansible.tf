@@ -45,7 +45,7 @@ resource "ansible_host" "meshdbmgr" {
   }
 }
 
-resource "ansible_host" "meshdbnode" {
+resource "ansible_host" "meshnode" {
   count  = 3
   name   = var.mesh_ips[count.index]
   groups = [ansible_group.workers.name]
