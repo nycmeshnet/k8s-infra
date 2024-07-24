@@ -29,7 +29,7 @@ resource "ansible_group" "lb" {
     LB_HOSTNAME                  = "k8s-lb-${var.mesh_env_name}"
     INTERNAL_NETWORK_BLOCK       = format("%s/%s", var.mesh_net_block, var.mesh_networkrange)
     INTERNAL_NETWORK_RANGE       = var.mesh_networkrange
-    NODE_IPS                     = var.mesh_ips
+    NODE_IPS                     = jsonencode(var.mesh_ips)
     NODE_PORT                    = "30303"
     MESHDB_FQDN                  = var.meshdb_fqdn
   }
