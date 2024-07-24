@@ -1,4 +1,4 @@
-resource "proxmox_vm_qemu" "meshdbmgr" {
+resource "proxmox_vm_qemu" "meshmgr" {
   count = 1
 
   name        = "mesh${var.mesh_env_name}mgr${count.index}"

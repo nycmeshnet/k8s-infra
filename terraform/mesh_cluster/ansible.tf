@@ -36,7 +36,7 @@ resource "ansible_group" "lb" {
 }
 
 # declare your hosts here
-resource "ansible_host" "meshdbmgr" {
+resource "ansible_host" "meshmgr" {
   count  = 1
   name   = var.mesh_mgr_ips[count.index]
   groups = [ansible_group.mgrs.name]
