@@ -6,7 +6,7 @@ network:
             dhcp6: false
             addresses:
             - {{ inventory_hostname }}/{{ INTERNAL_NETWORK_RANGE }}
-            gateway4: 10.70.90.1
+            gateway4: {{ MESH_DG }}
             match:
                 macaddress: {{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}
             nameservers:

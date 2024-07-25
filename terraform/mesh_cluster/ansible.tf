@@ -32,6 +32,7 @@ resource "ansible_group" "lb" {
     NODE_IPS                     = join(";", var.mesh_ips)
     NODE_PORT                    = "30303"
     MESHDB_FQDN                  = var.meshdb_fqdn
+    MESH_DG                      = var.mesh_gateway
   }
 }
 
