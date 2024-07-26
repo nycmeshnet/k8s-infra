@@ -37,7 +37,7 @@ variable "mesh_mgr_ips" {
 }
 
 variable "mesh_ips" {
-  description = "static IPs to use for nodes"
+  description = "static IPs to use for workers"
 }
 
 variable "mesh_lb_ip" {
