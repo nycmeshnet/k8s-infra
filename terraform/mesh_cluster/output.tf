@@ -8,7 +8,7 @@ output "mgr_ip" {
 output "worker_ips" {
   description = "IP address of the worker node"
   value = {
-    for k, node in proxmox_vm_qemu.meshworker : k => node.default_ipv4_address
+    for k, node in proxmox_vm_qemu.meshwkr : k => node.default_ipv4_address
   }
 }
 
