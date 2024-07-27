@@ -1,7 +1,6 @@
 name: Deploy Prod 1
 
 on:
-  pull_request:
   push:
     branches:
       - james/move
