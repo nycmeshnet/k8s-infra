@@ -3,7 +3,7 @@ name: Deploy Prod 1
 on:
   push:
     branches:
-      - james/move
+      - main
   workflow_dispatch:
     branches:
       - main

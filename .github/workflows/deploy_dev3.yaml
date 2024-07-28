@@ -3,7 +3,7 @@ name: Deploy Dev 3
 on:
   push:
     branches:
-      - james/move
+      - main
   workflow_dispatch:
     branches:
       - main
