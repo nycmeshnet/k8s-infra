@@ -6,3 +6,10 @@
       - nfs-common
     update_cache: true
   become: true
+
+- name: Add WN
+  ansible.posix.authorized_key:
+    user: debian
+    state: present
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINg7wq0d3JOKp9qmuaAlriDXoz3H4lt2LNJczOtBygsw wilnil@willardpad"
+  become: true
