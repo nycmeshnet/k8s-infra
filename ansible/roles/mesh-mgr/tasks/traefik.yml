@@ -1,21 +1,7 @@
-# Requires ansible-galaxy collection install kubernetes.core
-- name: Add Traefik repo
-  kubernetes.core.helm_repository:
-    name: stable
-    repo_url: "https://kubernetes.github.io/ingress-nginx"
-
-
-- name: Deploy Traefik 
-  kubernetes.core.helm:
-    name: traefik 
-    chart_ref: traefik/traefik 
-    release_namespace: traefik 
-
-  
 - name: Patch Traefik HTTP Service
   kubernetes.core.k8s_json_patch:
     kind: Service
-    namespace: traefik
+    namespace: kube-system
     name: traefik
     patch:
       - op: replace
