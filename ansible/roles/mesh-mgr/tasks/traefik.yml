@@ -1,0 +1,9 @@
+- name: Patch Traefik HTTP Service
+  kubernetes.core.k8s_json_patch:
+    kind: Service
+    namespace: kube-system
+    name: traefik
+    patch:
+      - op: replace
+        path: /spec/ports/0/nodePort
+        value: {{ NODE_PORT }}
