@@ -3,7 +3,7 @@ name: Deploy Dev 3
 on:
   push:
     branches:
-      - wdn/certs
+      - main
   workflow_dispatch:
     branches:
       - main
