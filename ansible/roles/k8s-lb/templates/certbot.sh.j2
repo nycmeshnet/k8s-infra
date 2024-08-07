@@ -10,6 +10,7 @@
     --agree-tos \
     -m jameso@nycmesh.net \
     --domain {{ MESHDB_FQDN }}
+    --domain *.svc.mesh.nycmesh.net
 
 # Copy the current full cert chain to haproxy config location
 CERTS_DIR="/etc/haproxy/ssl"
@@ -17,8 +18,8 @@ if [ ! -d "$CERTS_DIR" ]; then
     mkdir -p "$CERTS_DIR"
 fi
 
-cat /etc/letsencrypt/live/{{ MESHDB_FQDN }}/fullchain.pem > $CERTS_DIR/{{ MESHDB_FQDN }}.pem
-cat /etc/letsencrypt/live/{{ MESHDB_FQDN }}/privkey.pem > $CERTS_DIR/{{ MESHDB_FQDN }}.pem.key
+cat /etc/letsencrypt/live/lb/fullchain.pem > $CERTS_DIR/lb.pem
+cat /etc/letsencrypt/live/lb/privkey.pem > $CERTS_DIR/lb.pem.key
 
 # Reload the service
 service haproxy reload
