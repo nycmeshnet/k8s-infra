@@ -9,8 +9,7 @@
     --non-interactive \
     --agree-tos \
     -m jameso@nycmesh.net \
-    --domain {{ MESHDB_FQDN }}
-    --domain *.svc.mesh.nycmesh.net
+    --domain '{{ MESHDB_FQDN }}'
 
 # Copy the current full cert chain to haproxy config location
 CERTS_DIR="/etc/haproxy/ssl"
