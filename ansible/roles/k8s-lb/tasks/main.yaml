@@ -130,7 +130,6 @@
 - name: Get cert
   ansible.builtin.shell:
     cmd: /root/certbot.sh
-    creates: "/etc/haproxy/ssl/lb.pem"
   become: true
 
 - name: Crontab
