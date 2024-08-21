@@ -20,7 +20,7 @@ variable "k3s_token" {
   sensitive   = true
 }
 
-variable "datadog_api_key" {
+variable "DATADOG_API_KEY" {
   type        = string
   description = "datadog API key"
   sensitive   = true
