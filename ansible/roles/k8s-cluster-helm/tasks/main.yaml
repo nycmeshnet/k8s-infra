@@ -12,3 +12,18 @@
     chdir: /root/
     cmd: kubectl apply -f cluster_manifest.yaml
   become: true
+
+- name: Copy datadog agent manifiest
+  ansible.builtin.copy:
+    src: ./files/datadog_agent.yaml
+    dest: /root/datadog_agent.yaml
+    owner: root
+    group: root
+    mode: '0600'
+  become: true
+
+- name: Apply datadog agent manifest
+  ansible.builtin.command:
+    chdir: /root/
+    cmd: kubectl apply -f datadog_agent.yaml
+  become: true

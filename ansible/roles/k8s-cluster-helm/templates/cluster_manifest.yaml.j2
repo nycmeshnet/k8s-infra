@@ -36,21 +36,4 @@ spec:
   repo: https://helm.datadoghq.com 
   chart: datadog/datadog-operator
   targetNamespace: datadog
----
-apiVersion: datadoghq.com/v2alpha1
-kind: DatadogAgent
-metadata:
-  name: datadog
-  namespace: datadog
-spec:
-  global:
-    credentials:
-      apiSecret:
-        secretName: datadog-secret
-        keyName: api-key
-  features:
-    apm:
-      enabled: true
-    logCollection:
-      enabled: true
 
