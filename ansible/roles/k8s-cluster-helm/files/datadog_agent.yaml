@@ -7,7 +7,7 @@ spec:
   global:
     credentials:
       apiSecret:
-        secretName: datadog-secret
+        secretName: datadog-api-key
         keyName: api-key
   features:
     apm:
