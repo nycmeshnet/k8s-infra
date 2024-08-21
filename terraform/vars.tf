@@ -20,6 +20,12 @@ variable "k3s_token" {
   sensitive   = true
 }
 
+variable "datadog_api_key" {
+  type        = string
+  description = "datadog API key"
+  sensitive   = true
+}
+
 variable "mesh_proxmox_node" {
   type        = string
   description = "target node on the proxmox server"
