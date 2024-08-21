@@ -80,3 +80,9 @@ variable "k3s_token" {
   description = "token for the k3s cluster"
   sensitive   = true
 }
+
+variable "DATADOG_API_KEY" {
+  type        = string
+  description = "datadog API key"
+  sensitive   = true
+}
