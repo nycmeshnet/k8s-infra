@@ -1,6 +1,6 @@
 - name: Copy manifiest
-  ansible.builtin.copy:
-    src: ./files/cluster_manifest.yaml
+  ansible.builtin.template:
+    src: ./templates/cluster_manifest.yaml.j2
     dest: /root/cluster_manifest.yaml
     owner: root
     group: root
