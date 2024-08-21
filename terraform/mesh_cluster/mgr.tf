@@ -7,9 +7,9 @@ resource "proxmox_vm_qemu" "meshmgr" {
 
   clone = var.mesh_proxmox_template_image
 
-  cores                   = 2
+  cores                   = 4
   sockets                 = 1
-  memory                  = 2560
+  memory                  = 4096
   os_type                 = "cloud-init"
   agent                   = 1
   cloudinit_cdrom_storage = var.mesh_proxmox_storage_location
