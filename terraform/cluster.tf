@@ -7,7 +7,13 @@ module "some_mesh_cluster" {
   mesh_env_name                 = var.mesh_env_name
   mesh_local_user               = var.mesh_local_user
   mesh_mgr_ips                  = var.mesh_mgr_ips
+  mesh_mgr_cores                = var.mesh_mgr_cores
+  mesh_mgr_ram_mb               = var.mesh_mgr_ram_mb
+  mesh_mgr_disk_size            = var.mesh_mgr_disk_size
   mesh_ips                      = var.mesh_ips
+  mesh_worker_cores             = var.mesh_worker_cores
+  mesh_worker_ram_mb            = var.mesh_worker_ram_mb
+  mesh_worker_disk_size         = var.mesh_worker_disk_size
   mesh_lb_ip                    = var.mesh_lb_ip
   mesh_gateway                  = var.mesh_gateway
   mesh_networkrange             = var.mesh_networkrange

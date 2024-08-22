@@ -102,3 +102,33 @@ variable "vm_nic" {
   description = "nic for the vms"
   default     = "vmbr0"
 }
+
+variable "mesh_mgr_cores" {
+  type        = list(number)
+  description = "list of core counts for the manager nodes"
+}
+
+variable "mesh_mgr_ram_mb" {
+  type        = list(number)
+  description = "list of ram sizes for the manager nodes"
+}
+
+variable "mesh_mgr_disk_size" {
+  type        = list(number)
+  description = "list of disk sizes for the manager nodes"
+}
+
+variable "mesh_worker_cores" {
+  type        = list(number)
+  description = "list of core counts for the worker nodes"
+}
+
+variable "mesh_worker_ram_mb" {
+  type        = list(number)
+  description = "list of ram sizes for the worker nodes"
+}
+
+variable "mesh_worker_disk_size" {
+  type        = list(number)
+  description = "list of disk sizes for worker node"
+}

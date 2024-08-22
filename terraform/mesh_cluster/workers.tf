@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "meshwkr" {
-  count = 3
+  count = length(var.mesh_ips)
 
   name        = "mesh${var.mesh_env_name}node${count.index}"
   desc        = "worker ${count.index} for mesh services ${var.mesh_env_name}"
@@ -7,9 +7,9 @@ resource "proxmox_vm_qemu" "meshwkr" {
 
   clone = var.mesh_proxmox_template_image
 
-  cores                   = 4
+  cores                   = var.mesh_worker_cores[count.index]
   sockets                 = 1
-  memory                  = 4096
+  memory                  = var.mesh_worker_ram_mb[count.index]
   os_type                 = "cloud-init"
   agent                   = 1
   cloudinit_cdrom_storage = var.mesh_proxmox_storage_location
@@ -23,7 +23,7 @@ resource "proxmox_vm_qemu" "meshwkr" {
       scsi0 {
         disk {
           backup  = false
-          size    = 50
+          size    = var.mesh_worker_disk_size[count.index]
           storage = var.mesh_proxmox_storage_location
 
         }
