@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "meshmgr" {
-  count = 1
+  count = length(var.mesh_mgr_ips)
 
   name        = "mesh${var.mesh_env_name}mgr${count.index}"
   desc        = "managment server for mesh services ${var.mesh_env_name}"
@@ -7,9 +7,9 @@ resource "proxmox_vm_qemu" "meshmgr" {
 
   clone = var.mesh_proxmox_template_image
 
-  cores                   = 2
+  cores                   = var.mesh_mgr_cores[count.index]
   sockets                 = 1
-  memory                  = 2560
+  memory                  = var.mesh_mgr_ram_mb[count.index]
   os_type                 = "cloud-init"
   agent                   = 1
   cloudinit_cdrom_storage = var.mesh_proxmox_storage_location
@@ -23,7 +23,7 @@ resource "proxmox_vm_qemu" "meshmgr" {
       scsi0 {
         disk {
           backup  = false
-          size    = 50
+          size    = var.mesh_mgr_disk_size[count.index]
           storage = var.mesh_proxmox_storage_location
 
         }
@@ -36,7 +36,7 @@ resource "proxmox_vm_qemu" "meshmgr" {
     model  = "virtio"
   }
 
-  ipconfig0 = "ip=${var.mesh_mgr_ips[0]}/${var.mesh_networkrange},gw=${var.mesh_gateway}"
+  ipconfig0 = "ip=${var.mesh_mgr_ips[count.index]}/${var.mesh_networkrange},gw=${var.mesh_gateway}"
 
   ssh_user        = "root"
   ssh_private_key = file("${path.module}/mesh${var.mesh_env_name}")
