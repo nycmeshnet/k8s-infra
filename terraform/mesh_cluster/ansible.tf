@@ -38,7 +38,7 @@ resource "ansible_group" "lb" {
 
 # declare your hosts here
 resource "ansible_host" "meshmgr" {
-  count  = 1
+  count  = length(var.mesh_mgr_ips)
   name   = var.mesh_mgr_ips[count.index]
   groups = [ansible_group.mgrs.name]
   variables = {
@@ -47,7 +47,7 @@ resource "ansible_host" "meshmgr" {
 }
 
 resource "ansible_host" "meshworker" {
-  count  = 3
+  count  = length(var.mesh_ips)
   name   = var.mesh_ips[count.index]
   groups = [ansible_group.workers.name]
   variables = {
