@@ -81,6 +81,12 @@ variable "k3s_token" {
   sensitive   = true
 }
 
+variable "DATADOG_API_KEY" {
+  type        = string
+  description = "datadog API key"
+  sensitive   = true
+}
+
 variable "mesh_mgr_cores" {
   type        = list(number)
   description = "list of core counts for the manager nodes"
