@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "meshwkr" {
-  count = 3
+  count = length(var.mesh_ips)
 
   name        = "mesh${var.mesh_env_name}node${count.index}"
   desc        = "worker ${count.index} for mesh services ${var.mesh_env_name}"
