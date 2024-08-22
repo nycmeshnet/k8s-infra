@@ -6,10 +6,34 @@ mesh_local_user               = "debian"
 mesh_mgr_ips = [
   "10.70.90.146",
 ]
+mesh_mgr_cores = [
+  4,
+]
+mesh_mgr_ram_mb = [
+  4096,
+]
+mesh_mgr_disk_size = [
+  50,
+]
 mesh_ips = [
   "10.70.90.147",
   "10.70.90.143",
   "10.70.90.144",
+]
+mesh_worker_cores = [
+  4,
+  4,
+  4,
+]
+mesh_worker_ram_mb = [
+  4096,
+  4096,
+  4096,
+]
+mesh_worker_disk_size = [
+  50,
+  50,
+  50,
 ]
 mesh_lb_ip        = "10.70.90.145"
 mesh_gateway      = "10.70.90.1"
