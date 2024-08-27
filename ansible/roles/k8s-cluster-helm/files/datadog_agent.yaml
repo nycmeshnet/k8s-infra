@@ -9,8 +9,10 @@ spec:
       apiSecret:
         secretName: datadog-api-key
         keyName: api-key
+    site: us5.datadoghq.com
   features:
     apm:
       enabled: true
     logCollection:
       enabled: true
+      containerCollectAll: true
