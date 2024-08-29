@@ -10,7 +10,7 @@ metadata:
   namespace: datadog
 type: Opaque
 data:
-  api-key: {{ DATADOG_API_KEY }}
+  api-key: {{ DATADOG_API_KEY | b64encode }}
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
