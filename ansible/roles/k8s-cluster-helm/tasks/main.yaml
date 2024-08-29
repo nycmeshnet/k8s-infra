@@ -29,8 +29,8 @@
   become: true
 
 - name: Copy datadog agent manifiest
-  ansible.builtin.copy:
-    src: ./files/datadog_agent.yaml
+  ansible.builtin.template:
+    src: ./templates/datadog_agent.yaml.j2
     dest: /root/datadog_agent.yaml
     owner: root
     group: root
