@@ -16,3 +16,7 @@ spec:
     logCollection:
       enabled: true
       containerCollectAll: true
+    liveContainerCollection:
+      enabled: true
+    orchestratorExplorer:
+      enabled: true
