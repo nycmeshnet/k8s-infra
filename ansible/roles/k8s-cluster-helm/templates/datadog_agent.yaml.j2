@@ -13,7 +13,14 @@ spec:
     clusterName: {{ ENV_NAME }}
   features:
     apm:
-      enabled: true
+	  instrumentation:
+	    enabled: true
+		enabledNamespaces:
+		- meshdb
+		- meshforms
+		libVersions:
+		  js: "5"
+		  python: "2"
     logCollection:
       enabled: true
       containerCollectAll: true
