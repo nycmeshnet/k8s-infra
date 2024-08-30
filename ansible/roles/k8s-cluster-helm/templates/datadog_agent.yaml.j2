@@ -9,8 +9,15 @@ spec:
       apiSecret:
         secretName: datadog-api-key
         keyName: api-key
+    site: us5.datadoghq.com
+    clusterName: {{ ENV_NAME }}
   features:
     apm:
       enabled: true
     logCollection:
+      enabled: true
+      containerCollectAll: true
+    liveContainerCollection:
+      enabled: true
+    orchestratorExplorer:
       enabled: true

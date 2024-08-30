@@ -1,21 +1,36 @@
-- name: Copy manifiest
-  ansible.builtin.template:
-    src: ./templates/cluster_manifest.yaml.j2
-    dest: /root/cluster_manifest.yaml
+- name: Copy longhorn manifiest
+  ansible.builtin.copy:
+    src: ./files/longhorn_manifest.yaml
+    dest: /root/longhorn_manifest.yaml
     owner: root
     group: root
     mode: '0600'
   become: true
 
-- name: Apply manifest
+- name: Apply longhorn manifest
   ansible.builtin.command:
     chdir: /root/
-    cmd: kubectl apply -f cluster_manifest.yaml
+    cmd: kubectl apply -f longhorn_manifest.yaml
+  become: true
+
+- name: Copy datadog operator manifiest
+  ansible.builtin.template:
+    src: ./templates/datadog_operator.yaml.j2
+    dest: /root/datadog_operator.yaml
+    owner: root
+    group: root
+    mode: '0600'
+  become: true
+
+- name: Apply datadog operator manifest
+  ansible.builtin.command:
+    chdir: /root/
+    cmd: kubectl apply -f datadog_operator.yaml
   become: true
 
 - name: Copy datadog agent manifiest
-  ansible.builtin.copy:
-    src: ./files/datadog_agent.yaml
+  ansible.builtin.template:
+    src: ./templates/datadog_agent.yaml.j2
     dest: /root/datadog_agent.yaml
     owner: root
     group: root
