@@ -7,6 +7,7 @@ resource "ansible_group" "mgrs" {
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
     K3S_TOKEN                    = var.k3s_token
     DATADOG_API_KEY              = var.DATADOG_API_KEY
+    ENV_NAME                     = var.mesh_env_name
   }
 }
 
