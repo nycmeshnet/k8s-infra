@@ -4,6 +4,7 @@
     pkg:
       - open-iscsi
       - nfs-common
+      - cryptsetup
     update_cache: true
   become: true
 
