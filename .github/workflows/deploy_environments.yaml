@@ -20,6 +20,7 @@ jobs:
 
   deploy_prod1:
     name: Deploy prod1
+    needs: deploy_dev3
     uses: ./.github/workflows/deploy_k8s_cluster.yaml
     with:
       environment: prod1
