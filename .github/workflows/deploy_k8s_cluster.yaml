@@ -36,7 +36,7 @@ jobs:
           python-version: '3.11'
       
       - name: Setup ansible
-        run: pip install ansible && export PATH="$HOME/.local/bin:$PATH" && ansible-galaxy collection install cloud.terraform && ansible-galaxy collection install git+https://github.com/k3s-io/k3s-ansible.git,3e0c982a95717b76b90a405d53a68a5a6a95d316
+        run: pip install ansible && export PATH="$HOME/.local/bin:$PATH" && ansible-galaxy collection install cloud.terraform && ansible-galaxy collection install git+https://github.com/james-otten/k3s-ansible.git,26ea2ffd33b4424117797ac504ba06ffb1fd3733
 
       - name: Setup Terraform with specified version on the runner
         uses: hashicorp/setup-terraform@651471c36a6092792c552e8b1bef71e592b462d8 # @v3
