@@ -10,6 +10,19 @@ on:
       - dev
 
 jobs:
+  sync_main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge development -> staging
+        uses: devmasx/merge-branch@6ec8363d74aad4f1615d1234ae1908b4185c4313
+        with:
+          type: now
+          from_branch: prod 
+          target_branch: dev 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
   deploy_dev3:
     name: Deploy dev3
     uses: ./.github/workflows/deploy_k8s_cluster.yaml
