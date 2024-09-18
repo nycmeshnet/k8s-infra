@@ -46,4 +46,4 @@ mesh_networkrange = "24"
 mesh_net_block    = "10.70.90.0"
 mesh_external_ip  = "199.170.132.45"
 # Add domains to the end
-meshdb_fqdn = "db.mesh.nycmesh.net,forms.mesh.nycmesh.net,wiki.nycmesh.net,adminmap.mesh.nycmesh.net,map.mesh.nycmesh.net,db.nycmesh.net,pgadmin.db.nycmesh.net,map.db.nycmesh.net,adminmap.db.nycmesh.net,los-backend.db.nycmesh.net,los.nycmesh.net,forms.nycmesh.net"
+meshdb_fqdn = "wiki.nycmesh.net,db.nycmesh.net,pgadmin.db.nycmesh.net,map.db.nycmesh.net,adminmap.db.nycmesh.net,los-backend.db.nycmesh.net,los.nycmesh.net,forms.nycmesh.net"
