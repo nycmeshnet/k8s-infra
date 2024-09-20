@@ -115,22 +115,11 @@
     name: haproxy
     state: restarted
     enabled: true
+  when: not lb_cert_file.stat.exists
 
 - name: Get cert
   ansible.builtin.shell:
     cmd: /root/certbot.sh
-
-- name: Crontab
-  ansible.builtin.lineinfile:
-    path: /etc/cron.d/certbot_update_cert
-    line: "2 1 * * 1   root    bash /root/certbot.sh 2>&1 > /dev/null"
-    create: true
-
-- name: Restart and enable cron service
-  ansible.builtin.service:
-    name: cron
-    state: restarted
-    enabled: true
 
 - name: Re-apply config template haproxy (because certs should exist)
   ansible.builtin.template:
@@ -141,5 +130,17 @@
 - name: Restart and enable haproxy service
   ansible.builtin.service:
     name: haproxy
+    state: restarted
+    enabled: true
+
+- name: Crontab
+  ansible.builtin.lineinfile:
+    path: /etc/cron.d/certbot_update_cert
+    line: "2 1 * * 1   root    bash /root/certbot.sh 2>&1 > /dev/null"
+    create: true
+
+- name: Restart and enable cron service
+  ansible.builtin.service:
+    name: cron
     state: restarted
     enabled: true
