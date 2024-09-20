@@ -5,13 +5,11 @@
     owner: root
     group: root
     mode: '0600'
-  become: true
 
 - name: Apply longhorn manifest
   ansible.builtin.command:
     chdir: /root/
     cmd: kubectl apply -f longhorn_manifest.yaml
-  become: true
 
 - name: Copy datadog operator manifiest
   ansible.builtin.template:
@@ -20,13 +18,11 @@
     owner: root
     group: root
     mode: '0600'
-  become: true
 
 - name: Apply datadog operator manifest
   ansible.builtin.command:
     chdir: /root/
     cmd: kubectl apply -f datadog_operator.yaml
-  become: true
 
 - name: Copy datadog agent manifiest
   ansible.builtin.template:
@@ -35,10 +31,8 @@
     owner: root
     group: root
     mode: '0600'
-  become: true
 
 - name: Apply datadog agent manifest
   ansible.builtin.command:
     chdir: /root/
     cmd: kubectl apply -f datadog_agent.yaml
-  become: true
