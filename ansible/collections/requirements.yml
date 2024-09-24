@@ -2,4 +2,4 @@ collections:
   - name: k3s.orchestration
     source: git+https://github.com/k3s-io/k3s-ansible.git
     type: git
-    version: 3e0c982a95717b76b90a405d53a68a5a6a95d316
+    version: master
