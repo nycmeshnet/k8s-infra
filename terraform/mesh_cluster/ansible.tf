@@ -8,6 +8,7 @@ resource "ansible_group" "mgrs" {
     K3S_TOKEN                    = var.k3s_token
     DATADOG_API_KEY              = var.DATADOG_API_KEY
     ENV_NAME                     = var.mesh_env_name
+    LOCAL_PASSWORD               = var.mesh_local_password
   }
 }
 
@@ -18,6 +19,7 @@ resource "ansible_group" "workers" {
     ansible_ssh_private_key_file = "../terraform/${path.module}/mesh${var.mesh_env_name}"
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
     K3S_TOKEN                    = var.k3s_token
+    LOCAL_PASSWORD               = var.mesh_local_password
   }
 }
 
@@ -35,6 +37,7 @@ resource "ansible_group" "lb" {
     NODE_PORT                    = "30303"
     MESHDB_FQDN                  = var.meshdb_fqdn
     MESH_DG                      = var.mesh_gateway
+    LOCAL_PASSWORD               = var.mesh_local_password
   }
 }
 
