@@ -9,6 +9,7 @@ resource "ansible_group" "mgrs" {
     DATADOG_API_KEY              = var.DATADOG_API_KEY
     ENV_NAME                     = var.mesh_env_name
     LOCAL_PASSWORD               = var.mesh_local_password
+    LONGHORN_PASSPHRASE          = var.longhorn_passphrase
   }
 }
 
