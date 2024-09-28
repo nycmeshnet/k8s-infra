@@ -87,6 +87,12 @@ variable "DATADOG_API_KEY" {
   sensitive   = true
 }
 
+variable "DATADOG_SITE" {
+  type        = string
+  description = "datadog site url"
+  sensitive   = true
+}
+
 variable "mesh_mgr_cores" {
   type        = list(number)
   description = "list of core counts for the manager nodes"

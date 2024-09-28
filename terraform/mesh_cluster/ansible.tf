@@ -35,6 +35,8 @@ resource "ansible_group" "lb" {
     NODE_PORT                    = "30303"
     MESHDB_FQDN                  = var.meshdb_fqdn
     MESH_DG                      = var.mesh_gateway
+    DATADOG_API_KEY              = var.DATADOG_API_KEY
+    DATADOG_SITE                 = var.DATADOG_SITE
   }
 }
 
