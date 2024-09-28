@@ -32,6 +32,12 @@ variable "mesh_local_password" {
   sensitive   = true
 }
 
+variable "longhorn_passphrase" {
+  type        = string
+  description = "password encrypted volumes in longhorn"
+  sensitive   = true
+}
+
 variable "mesh_mgr_ips" {
   description = "static IPs to use for managers"
 }

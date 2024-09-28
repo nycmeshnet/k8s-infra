@@ -1,6 +1,6 @@
 - name: Copy longhorn manifiest
   ansible.builtin.copy:
-    src: ./files/longhorn_manifest.yaml
+    src: ./templates/longhorn_manifest.yaml.j2
     dest: /root/longhorn_manifest.yaml
     owner: root
     group: root
