@@ -8,6 +8,7 @@ resource "ansible_group" "mgrs" {
     K3S_TOKEN                    = var.k3s_token
     DATADOG_API_KEY              = var.DATADOG_API_KEY
     ENV_NAME                     = var.mesh_env_name
+    LONGHORN_PASSPHRASE          = var.longhorn_passphrase
   }
 }
 
