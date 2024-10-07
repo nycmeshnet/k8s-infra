@@ -46,7 +46,7 @@ resource "proxmox_vm_qemu" "k8s-lb" {
     type = "socket"
   }
 
-  tags = "mesh${var.mesh_env_name},managed_by_iac"
+  tags = "managed_by_iac,mesh${var.mesh_env_name}"
 
   lifecycle {
     ignore_changes = [
