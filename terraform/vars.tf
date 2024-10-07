@@ -26,6 +26,12 @@ variable "DATADOG_API_KEY" {
   sensitive   = true
 }
 
+variable "DATADOG_SITE" {
+  type        = string
+  description = "datadog site url"
+  sensitive   = true
+}
+
 variable "mesh_proxmox_node" {
   type        = string
   description = "target node on the proxmox server"
