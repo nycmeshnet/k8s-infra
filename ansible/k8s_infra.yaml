@@ -30,4 +30,5 @@
 - hosts: lb
   become: true
   roles:
+    - role: monitoring
     - role: k8s-lb

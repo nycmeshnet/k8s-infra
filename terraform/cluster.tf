@@ -21,7 +21,9 @@ module "some_mesh_cluster" {
   mesh_external_ip              = var.mesh_external_ip
   meshdb_fqdn                   = var.meshdb_fqdn
   mesh_local_password           = var.mesh_local_password
+  longhorn_passphrase           = var.longhorn_passphrase
   k3s_token                     = var.k3s_token
   DATADOG_API_KEY               = var.DATADOG_API_KEY
+  DATADOG_SITE                  = var.DATADOG_SITE
   vm_nic                        = var.vm_nic
 }

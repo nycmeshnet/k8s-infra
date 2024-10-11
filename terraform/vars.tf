@@ -26,6 +26,12 @@ variable "DATADOG_API_KEY" {
   sensitive   = true
 }
 
+variable "DATADOG_SITE" {
+  type        = string
+  description = "datadog site url"
+  sensitive   = true
+}
+
 variable "mesh_proxmox_node" {
   type        = string
   description = "target node on the proxmox server"
@@ -57,6 +63,12 @@ variable "mesh_local_user" {
 variable "mesh_local_password" {
   type        = string
   description = "password for the local user"
+  sensitive   = true
+}
+
+variable "longhorn_passphrase" {
+  type        = string
+  description = "password encrypted volumes in longhorn"
   sensitive   = true
 }
 

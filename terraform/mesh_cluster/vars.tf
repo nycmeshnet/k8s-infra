@@ -32,6 +32,12 @@ variable "mesh_local_password" {
   sensitive   = true
 }
 
+variable "longhorn_passphrase" {
+  type        = string
+  description = "password encrypted volumes in longhorn"
+  sensitive   = true
+}
+
 variable "mesh_mgr_ips" {
   description = "static IPs to use for managers"
 }
@@ -84,6 +90,12 @@ variable "k3s_token" {
 variable "DATADOG_API_KEY" {
   type        = string
   description = "datadog API key"
+  sensitive   = true
+}
+
+variable "DATADOG_SITE" {
+  type        = string
+  description = "datadog site url"
   sensitive   = true
 }
 
