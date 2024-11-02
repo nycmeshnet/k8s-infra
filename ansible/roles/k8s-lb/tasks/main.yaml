@@ -12,6 +12,18 @@
       - haproxy
       - openvswitch-switch-dpdk
 
+- name: Add WN
+  ansible.posix.authorized_key:
+    user: debian
+    state: present
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINg7wq0d3JOKp9qmuaAlriDXoz3H4lt2LNJczOtBygsw wilnil@willardpad"
+
+- name: Add AD
+  ansible.posix.authorized_key:
+    user: debian
+    state: present
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqMvlwLFwGENT5WMjytI2iwVlHPV2TX+gOgBXj9kw4k andrew@localhost"
+
 - name: Install certbot
   ansible.builtin.pip:
     name: certbot==2.11.0
