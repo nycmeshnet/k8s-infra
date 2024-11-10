@@ -156,3 +156,16 @@
     name: cron
     state: restarted
     enabled: true
+
+- name: Datadog haproxy config
+  ansible.builtin.copy:
+    src: files/haproxy.d_conf.yaml
+    dest: /etc/datadog-agent/conf.d/haproxy.d/conf.yaml
+    owner: dd-agent
+    group: dd-agent
+
+- name: Reload datadog
+  ansible.builtin.systemd_service:
+    name: datadog-agent
+    state: restarted
+    enabled: true
