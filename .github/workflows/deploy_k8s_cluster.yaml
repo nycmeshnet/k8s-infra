@@ -98,5 +98,5 @@ jobs:
         working-directory: ./terraform/
       
       - name: Run playbook
-        run: sleep 45 && export PATH="$HOME/.local/bin:$PATH" && ansible-playbook -i inventory.yaml k8s_infra.yaml
+        run: sleep 20 && export PATH="$HOME/.local/bin:$PATH" && ansible-playbook -i inventory.yaml k8s_infra.yaml
         working-directory: ./ansible/

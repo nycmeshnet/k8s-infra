@@ -1,5 +1,6 @@
 - hosts: mgrs 
   become: true
+  gather_facts: true
   roles:
     - role: mesh-k8s-node
     - role: mesh-mgr
@@ -16,6 +17,7 @@
 
 - hosts: workers 
   become: true
+  gather_facts: true
   roles:
     - role: mesh-k8s-node
     - role: k3s.orchestration.prereq # k3s-ansible
