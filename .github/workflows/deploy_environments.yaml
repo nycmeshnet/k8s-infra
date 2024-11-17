@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - james/optimize_ansible
   workflow_dispatch:
     branches:
       - main
@@ -16,7 +17,7 @@ jobs:
     with:
       environment: dev3
     secrets: inherit
-    if: github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/main'
 
   deploy_prod1:
     name: Deploy prod1
