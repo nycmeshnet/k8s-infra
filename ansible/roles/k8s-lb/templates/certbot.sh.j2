@@ -2,8 +2,11 @@
 
 set -e
 
+CERT_NAME="k8slb"
+
 # Renew the cert
 /root/certbot_venv/bin/certbot certonly \
+    --cert-name $CERT_NAME \
     --authenticator standalone \
     --http-01-port 63443 \
     --text \
@@ -19,12 +22,17 @@ if [ ! -d "$CERTS_DIR" ]; then
     mkdir -p "$CERTS_DIR"
 fi
 
-# Grab the first domain in the list. Not that it matters but it should be
-# {dev}db.mesh.nycmesh.net
-first_domain=$(echo '{{ MESHDB_FQDN }}' | awk -F ',' '{print $1}')
+# Known path to the certs based on the --cert-name arg
+full_chain_path="/etc/letsencrypt/live/$CERT_NAME/fullchain.pem"
+priv_key_path="/etc/letsencrypt/live/$CERT_NAME/privkey.pem"
 
-cat /etc/letsencrypt/live/$first_domain/fullchain.pem > $CERTS_DIR/lb.pem
-cat /etc/letsencrypt/live/$first_domain/privkey.pem > $CERTS_DIR/lb.pem.key
+# Only update the certs if they exist, otherwise fail here before something broken is rolled out
+if [ ! -f "$full_chain_path" ] || [ ! -f "$priv_key_path" ]; then
+    exit 1
+else
+    cat /etc/letsencrypt/live/$CERT_NAME/fullchain.pem > $CERTS_DIR/lb.pem
+    cat /etc/letsencrypt/live/$CERT_NAME/privkey.pem > $CERTS_DIR/lb.pem.key
+fi
 
 # Reload the service
 service haproxy reload

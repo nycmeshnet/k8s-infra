@@ -85,10 +85,10 @@
     state: restarted
     enabled: true
 
-- name: Restart and enable frr service
+- name: Reload and enable frr service
   ansible.builtin.service:
     name: frr
-    state: restarted
+    state: reloaded
     enabled: true
 
 - name: net.ipv4.ip_forward
@@ -139,10 +139,10 @@
     dest: /etc/haproxy/haproxy.cfg
   when: not lb_cert_file.stat.exists
 
-- name: Restart and enable haproxy service
+- name: Reload and enable haproxy service
   ansible.builtin.service:
     name: haproxy
-    state: restarted
+    state: reloaded
     enabled: true
 
 - name: Crontab
