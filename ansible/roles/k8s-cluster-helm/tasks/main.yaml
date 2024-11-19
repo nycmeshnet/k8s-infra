@@ -36,3 +36,16 @@
   ansible.builtin.command:
     chdir: /root/
     cmd: kubectl apply -f datadog_agent.yaml
+
+- name: Copy traefik config
+  ansible.builtin.template:
+    src: ./templates/traefik_config.yaml.j2
+    dest: /root/traefik_config.yaml
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Apply traefik config manifest
+  ansible.builtin.command:
+    chdir: /root/
+    cmd: kubectl apply -f traefik_config.yaml
