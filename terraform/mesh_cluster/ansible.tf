@@ -47,7 +47,8 @@ resource "ansible_host" "meshmgr" {
   name   = var.mesh_mgr_ips[count.index]
   groups = [ansible_group.mgrs.name]
   variables = {
-    K3S_API_ENDPOINT = var.mesh_mgr_ips[0]
+    K3S_API_ENDPOINT    = var.mesh_mgr_ips[0]
+    TRAEFIK_TRUSTED_IPs = format("%s/32,%s/32,10.42.0.0/16", var.mesh_lb_ip, var.mesh_external_ip)
   }
 }
 
