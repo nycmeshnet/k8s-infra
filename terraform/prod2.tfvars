@@ -36,7 +36,7 @@ mesh_worker_disk_size = [
   150,
   150,
 ]
-mesh_lb_ip        = "10.70.100.50"
+mesh_lb_ip        = "10.70.100.51"
 mesh_lb_cores     = 2
 mesh_lb_ram_mb    = 6144
 mesh_lb_disk_size = 10
