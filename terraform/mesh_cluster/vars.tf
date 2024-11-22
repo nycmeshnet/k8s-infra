@@ -128,3 +128,21 @@ variable "mesh_worker_disk_size" {
   type        = list(number)
   description = "list of disk sizes for worker node"
 }
+
+variable "mesh_lb_cores" {
+  type        = number
+  description = "number of cores for the lb"
+  default     = 2
+}
+
+variable "mesh_lb_ram_mb" {
+  type        = number
+  description = "ram size for the lb in mb"
+  default     = 2560
+}
+
+variable "mesh_lb_disk_size" {
+  type        = number
+  description = "disk size for the lb in gb"
+  default     = 10
+}
