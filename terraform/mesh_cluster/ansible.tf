@@ -28,7 +28,7 @@ resource "ansible_group" "lb" {
     ansible_user                 = var.mesh_local_user
     ansible_ssh_private_key_file = "../terraform/${path.module}/mesh${var.mesh_env_name}"
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-    EXTERNAL_LISTEN_IPS          = join(";", var.mesh_external_ip)
+    EXTERNAL_LISTEN_IPS          = join(";", var.mesh_external_ips)
     LB_HOSTNAME                  = "k8s-lb-${var.mesh_env_name}"
     INTERNAL_NETWORK_BLOCK       = format("%s/%s", var.mesh_net_block, var.mesh_networkrange)
     INTERNAL_NETWORK_RANGE       = var.mesh_networkrange
