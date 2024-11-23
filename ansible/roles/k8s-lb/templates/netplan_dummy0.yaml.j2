@@ -6,4 +6,4 @@ network:
       dhcp4: no
       dhcp6: no
       addresses:
-        - {{ EXTERNAL_LISTEN_IP }}/32
+        - {{ EXTERNAL_LISTEN_IPS.split(';')[0] }}/32
