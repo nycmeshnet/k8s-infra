@@ -21,7 +21,7 @@ module "some_mesh_cluster" {
   mesh_gateway                  = var.mesh_gateway
   mesh_networkrange             = var.mesh_networkrange
   mesh_net_block                = var.mesh_net_block
-  mesh_external_ip              = var.mesh_external_ip
+  mesh_external_ips             = var.mesh_external_ips
   meshdb_fqdn                   = var.meshdb_fqdn
   mesh_local_password           = var.mesh_local_password
   longhorn_passphrase           = var.longhorn_passphrase

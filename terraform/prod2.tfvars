@@ -43,5 +43,8 @@ mesh_lb_disk_size = 10
 mesh_gateway      = "10.70.100.1"
 mesh_networkrange = "24"
 mesh_net_block    = "10.70.100.0"
-mesh_external_ip  = "199.167.59.103"
-meshdb_fqdn       = "db.nycmesh.net,map.db.nycmesh.net,adminmap.db.nycmesh.net,los.nycmesh.net,forms.nycmesh.net,stats-new.nycmesh.net,map.nycmesh.net,stats.nycmesh.net"
+mesh_external_ips = [
+  "199.167.59.103",
+  "23.158.16.22",
+]
+meshdb_fqdn = "db.nycmesh.net,map.db.nycmesh.net,adminmap.db.nycmesh.net,los.nycmesh.net,forms.nycmesh.net,stats-new.nycmesh.net,map.nycmesh.net,stats.nycmesh.net"

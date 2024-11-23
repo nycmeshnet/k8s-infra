@@ -65,8 +65,8 @@ variable "mesh_net_block" {
   default     = "10.70.90.0"
 }
 
-variable "mesh_external_ip" {
-  type        = string
+variable "mesh_external_ips" {
+  type        = list(string)
   description = "external ip for meshdb, assigned to the lb vm"
 }
 
