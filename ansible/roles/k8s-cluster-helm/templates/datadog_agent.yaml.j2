@@ -4,6 +4,13 @@ metadata:
   name: datadog
   namespace: datadog
 spec:
+  override:
+    nodeAgent:
+      containers:
+        trace-agent:
+          env:
+          - name: DD_APM_ENV
+            value: {{ ENV_NAME }}
   global:
     credentials:
       apiSecret:
