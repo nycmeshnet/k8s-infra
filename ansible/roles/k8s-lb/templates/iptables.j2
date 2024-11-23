@@ -2,18 +2,25 @@
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
--A INPUT -p icmp -j ACCEPT
+
+# Allow ICMP traffic from Mesh
+-A INPUT -p icmp -s 10.0.0.0/8 -j ACCEPT
+-A INPUT -p icmp -s 23.158.16.0/24 -j ACCEPT
+-A INPUT -p icmp -s 199.167.59.0/24 -j ACCEPT
+-A INPUT -p icmp -s 199.170.132.0/24 -j ACCEPT
+-A INPUT -p icmp -s 208.68.5.0/24 -j ACCEPT
+
+# Allow SSH to the mgt address only
 -A INPUT -d {{ inventory_hostname }}/{{ INTERNAL_NETWORK_RANGE }} -p tcp -m tcp --dport 22 -j ACCEPT
 
+# Allow HTTP and HTTPS traffic
 {% for external_ip in EXTERNAL_LISTEN_IPS.split(';') %}
-
 -A INPUT -d {{ external_ip }}/32 -p tcp -m tcp --dport 80 -j ACCEPT
 -A INPUT -d {{ external_ip }}/32 -p tcp -m tcp --dport 443 -j ACCEPT
 -A INPUT -d {{ external_ip }}/32 -j DROP
 -A FORWARD -d {{ external_ip }}/32 -p tcp -m tcp --dport 80 -j ACCEPT
 -A FORWARD -d {{ external_ip }}/32 -p tcp -m tcp --dport 443 -j ACCEPT
 -A FORWARD -d {{ external_ip }}/32 -j DROP
-
 {% endfor %}
 
 COMMIT
