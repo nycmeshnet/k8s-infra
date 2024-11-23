@@ -10,6 +10,9 @@ module "some_mesh_cluster" {
   mesh_mgr_cores                = var.mesh_mgr_cores
   mesh_mgr_ram_mb               = var.mesh_mgr_ram_mb
   mesh_mgr_disk_size            = var.mesh_mgr_disk_size
+  mesh_lb_cores                 = var.mesh_lb_cores
+  mesh_lb_ram_mb                = var.mesh_lb_ram_mb
+  mesh_lb_disk_size             = var.mesh_lb_disk_size
   mesh_ips                      = var.mesh_ips
   mesh_worker_cores             = var.mesh_worker_cores
   mesh_worker_ram_mb            = var.mesh_worker_ram_mb
@@ -18,7 +21,7 @@ module "some_mesh_cluster" {
   mesh_gateway                  = var.mesh_gateway
   mesh_networkrange             = var.mesh_networkrange
   mesh_net_block                = var.mesh_net_block
-  mesh_external_ip              = var.mesh_external_ip
+  mesh_external_ips             = var.mesh_external_ips
   meshdb_fqdn                   = var.meshdb_fqdn
   mesh_local_password           = var.mesh_local_password
   longhorn_passphrase           = var.longhorn_passphrase

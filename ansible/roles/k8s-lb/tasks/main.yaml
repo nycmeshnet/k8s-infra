@@ -42,6 +42,13 @@
     dest: /etc/netplan/dummy0.yaml
     mode: "600"
 
+- name: dummy1 interface
+  ansible.builtin.template:
+    src: ../templates/netplan_dummy1.yaml.j2
+    dest: /etc/netplan/dummy1.yaml
+    mode: "600"
+  when: EXTERNAL_LISTEN_IPS | split(';') | length == 2
+
 - name: eth0 interface
   ansible.builtin.template:
     src: ../templates/netplan_50_cloud_init.yaml.j2
