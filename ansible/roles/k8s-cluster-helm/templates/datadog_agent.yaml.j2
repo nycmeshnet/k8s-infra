@@ -5,6 +5,8 @@ metadata:
   namespace: datadog
 spec:
   global:
+    originDetectionUnified:
+        enabled: true
     credentials:
       apiSecret:
         secretName: datadog-api-key
@@ -21,3 +23,6 @@ spec:
       enabled: true
     orchestratorExplorer:
       enabled: true
+    dogstatsd:
+        hostPortConfig:
+            enabled: true
