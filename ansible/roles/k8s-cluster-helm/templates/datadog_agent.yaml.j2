@@ -12,8 +12,16 @@ spec:
     site: us5.datadoghq.com
     clusterName: {{ ENV_NAME }}
   features:
+    admissionController:
+      enabled: true
+      mutateUnlabelled: false
     apm:
       enabled: true
+      instrumentation:
+        enabled: true
+        enabledNamespaces:
+        - meshforms
+        - meshdb
     logCollection:
       enabled: true
       containerCollectAll: true
