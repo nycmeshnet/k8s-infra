@@ -46,4 +46,11 @@ mesh_net_block    = "10.70.90.0"
 mesh_external_ips = [
   "199.170.132.46",
 ]
-meshdb_fqdn = "devdb.nycmesh.net,map.devdb.nycmesh.net,adminmap.devdb.nycmesh.net,los-backend.devdb.nycmesh.net,los.devdb.nycmesh.net,forms.devdb.nycmesh.net,devmap.nycmesh.net"
+meshdb_fqdn = [
+  "devdb.nycmesh.net",
+  "adminmap.devdb.nycmesh.net",
+  "los-backend.devdb.nycmesh.net",
+  "los.devdb.nycmesh.net",
+  "forms.devdb.nycmesh.net",
+  "devmap.nycmesh.net",
+]

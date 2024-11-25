@@ -34,7 +34,7 @@ resource "ansible_group" "lb" {
     INTERNAL_NETWORK_RANGE       = var.mesh_networkrange
     WORKER_IPS                   = join(";", var.mesh_ips)
     NODE_PORT                    = "80"
-    MESHDB_FQDN                  = var.meshdb_fqdn
+    MESHDB_FQDN                  = join(",", var.meshdb_fqdn)
     MESH_DG                      = var.mesh_gateway
     DATADOG_API_KEY              = var.DATADOG_API_KEY
     DATADOG_SITE                 = var.DATADOG_SITE
