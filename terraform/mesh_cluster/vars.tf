@@ -71,8 +71,8 @@ variable "mesh_external_ips" {
 }
 
 variable "meshdb_fqdn" {
-  type        = string
-  description = "fqdn meshdb should be responding to"
+  type        = list(string)
+  description = "FQDNs the cluster should respond to"
 }
 
 variable "vm_nic" {

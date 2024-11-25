@@ -47,4 +47,8 @@ mesh_net_block    = "10.70.90.0"
 mesh_external_ips = [
   "199.170.132.45",
 ]
-meshdb_fqdn = "wiki.nycmesh.net,wiki.mesh.nycmesh.net,los-backend.db.nycmesh.net"
+meshdb_fqdn = [
+  "wiki.nycmesh.net",
+  "wiki.mesh.nycmesh.net",
+  "los-backend.db.nycmesh.net",
+]
