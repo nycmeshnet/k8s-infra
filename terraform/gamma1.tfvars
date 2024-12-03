@@ -4,7 +4,7 @@ mesh_proxmox_storage_location = "local-lvm"
 mesh_env_name                 = "gamma1"
 mesh_local_user               = "debian"
 mesh_mgr_ips = [
-  "10.70.90.198",
+  "10.70.90.168",
 ]
 mesh_mgr_cores = [
   4,
@@ -18,7 +18,6 @@ mesh_mgr_disk_size = [
 mesh_ips = [
   "10.70.90.199",
   "10.70.90.200",
-  "10.70.90.168",
 ]
 mesh_worker_cores = [
   4,
