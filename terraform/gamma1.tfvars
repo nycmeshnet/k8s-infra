@@ -17,7 +17,7 @@ mesh_mgr_disk_size = [
 ]
 mesh_ips = [
   "10.70.90.199",
-  "10.70.90.200",
+  "10.70.90.162",
 ]
 mesh_worker_cores = [
   4,
