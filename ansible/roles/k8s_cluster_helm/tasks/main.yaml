@@ -1,10 +1,10 @@
 - name: Copy longhorn manifiest
   ansible.builtin.copy:
-    src: ./templates/longhorn_manifest.yaml.j2
+    src: longhorn_manifest.yaml.j2
     dest: /root/longhorn_manifest.yaml
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
 
 - name: Apply longhorn manifest
   ansible.builtin.command:
@@ -17,7 +17,7 @@
     dest: /root/datadog_operator.yaml
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
 
 - name: Apply datadog operator manifest
   ansible.builtin.command:
@@ -30,7 +30,7 @@
     dest: /root/datadog_agent.yaml
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
 
 - name: Apply datadog agent manifest
   ansible.builtin.command:
@@ -43,7 +43,7 @@
     dest: /root/traefik_config.yaml
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
 
 - name: Apply traefik config manifest
   ansible.builtin.command:
