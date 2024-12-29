@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - james/ansible_lint
   workflow_dispatch:
     branches:
       - main
