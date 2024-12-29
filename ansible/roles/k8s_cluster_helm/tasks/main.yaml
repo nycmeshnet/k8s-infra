@@ -1,5 +1,5 @@
 - name: Copy longhorn manifiest
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: longhorn_manifest.yaml.j2
     dest: /root/longhorn_manifest.yaml
     owner: root
@@ -13,7 +13,7 @@
 
 - name: Copy datadog operator manifiest
   ansible.builtin.template:
-    src: ./templates/datadog_operator.yaml.j2
+    src: datadog_operator.yaml.j2
     dest: /root/datadog_operator.yaml
     owner: root
     group: root
@@ -26,7 +26,7 @@
 
 - name: Copy datadog agent manifiest
   ansible.builtin.template:
-    src: ./templates/datadog_agent.yaml.j2
+    src: datadog_agent.yaml.j2
     dest: /root/datadog_agent.yaml
     owner: root
     group: root
@@ -39,7 +39,7 @@
 
 - name: Copy traefik config
   ansible.builtin.template:
-    src: ./templates/traefik_config.yaml.j2
+    src: traefik_config.yaml.j2
     dest: /root/traefik_config.yaml
     owner: root
     group: root
