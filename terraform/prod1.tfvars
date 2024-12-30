@@ -52,4 +52,5 @@ meshdb_fqdn = [
   "wiki.nycmesh.net",
   "wiki.mesh.nycmesh.net",
   "los-backend.db.nycmesh.net",
+  "mastodon.nycmesh.net",
 ]
