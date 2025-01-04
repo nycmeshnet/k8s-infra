@@ -48,8 +48,9 @@ mesh_external_ips = [
   "199.170.132.45",
 ]
 meshdb_fqdn = [
-  "forms.nycmesh.net",
   "wiki.nycmesh.net",
   "wiki.mesh.nycmesh.net",
   "los-backend.db.nycmesh.net",
+  "mastodon.nycmesh.net",
+  "gsg-displays.nycmesh.net",
 ]
