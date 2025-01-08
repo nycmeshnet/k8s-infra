@@ -1,12 +1,13 @@
-- hosts: mgrs 
+- name: K8s Managers
+  hosts: mgrs
   become: true
   gather_facts: true
   roles:
-    - role: mesh-k8s-node
-    - role: mesh-mgr
+    - role: mesh_k8s_node
+    - role: mesh_mgr
     - role: k3s.orchestration.prereq # k3s-ansible
     - role: k3s.orchestration.k3s_server # k3s-ansible
-    - role: k8s-cluster-helm
+    - role: k8s_cluster_helm
   vars:
     k3s_version: v1.30.2+k3s2
     api_endpoint: "{{ K3S_API_ENDPOINT }}"
@@ -15,11 +16,12 @@
     extra_agent_args: ""
     server_group: "mgrs"
 
-- hosts: workers 
+- name: K8s Agents
+  hosts: workers
   become: true
   gather_facts: true
   roles:
-    - role: mesh-k8s-node
+    - role: mesh_k8s_node
     - role: k3s.orchestration.prereq # k3s-ansible
     - role: k3s.orchestration.k3s_agent # k3s-ansible
   vars:
@@ -29,8 +31,9 @@
     extra_server_args: ""
     extra_agent_args: ""
 
-- hosts: lb
+- name: Loadbalancer
+  hosts: lb
   become: true
   roles:
     - role: monitoring
-    - role: k8s-lb
+    - role: k8s_lb

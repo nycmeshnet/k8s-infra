@@ -40,3 +40,11 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: results.sarif
+
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@c629b235398065e24ff44b5f1138028642c74a03
+        with:
+          args: ""
+          setup_python: "true"
+          working_directory: "./ansible/"
+          requirements_file: ""

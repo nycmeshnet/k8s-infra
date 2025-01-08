@@ -1,0 +1,9 @@
+collections:
+  - name: k3s.orchestration
+    source: git+https://github.com/k3s-io/k3s-ansible.git
+    type: git
+    version: 99fa632acb713758c8ee376e2a6cc9d03404914c
+  - name: datadog.dd
+    version: 5.8.0
+  - name: cloud.terraform
+    version: 3.0.0
