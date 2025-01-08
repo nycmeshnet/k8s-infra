@@ -6,4 +6,4 @@
     patch:
       - op: replace
         path: /spec/ports/0/nodePort
-        value: {{ NODE_PORT }}
+        value: "{{ NODE_PORT }}"
