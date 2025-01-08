@@ -118,7 +118,7 @@
     state: directory
     mode: '0755'
 
-- name: Copy mastadon PUBLIC cert
+- name: Copy mastodon PUBLIC cert
   ansible.builtin.copy:
     src: mastodon_public_certificate_not_sensitive.pem
     dest: /etc/haproxy/external_ssl/mastodon.pem
