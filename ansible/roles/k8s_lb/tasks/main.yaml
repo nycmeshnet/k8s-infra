@@ -113,6 +113,20 @@
     state: directory
     mode: "0755"
 
+- name: Create external_ssl certs directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/haproxy/external_ssl
+    state: directory
+    mode: '0755'
+
+- name: Copy mastodon PUBLIC cert
+  ansible.builtin.copy:
+    src: mastodon_public_certificate_not_sensitive.pem
+    dest: /etc/haproxy/external_ssl/mastodon.pem
+    owner: "root"
+    group: "root"
+    mode: "644"
+
 - name: Check if file exists
   ansible.builtin.stat:
     path: "/etc/haproxy/ssl/lb.pem"
