@@ -10,6 +10,7 @@
       - iptables-persistent
       - haproxy
       - openvswitch-switch-dpdk
+      - bird2
 
 - name: Add WN
   ansible.posix.authorized_key:
@@ -54,24 +55,6 @@
     dest: /etc/netplan/50-cloud-init.yaml
     mode: "600"
 
-- name: Install frr
-  ansible.builtin.apt:
-    update_cache: true
-    pkg:
-      - frr
-
-- name: Enable ospfd
-  ansible.builtin.lineinfile:
-    path: /etc/frr/daemons
-    search_string: ospfd=no
-    line: "ospfd=yes"
-
-- name: Config template frr
-  ansible.builtin.template:
-    src: frr.conf.j2
-    dest: /etc/frr/frr.conf
-    mode: "640"
-
 - name: Iptables rules
   ansible.builtin.template:
     src: iptables.j2
@@ -93,11 +76,26 @@
     state: restarted
     enabled: true
 
-- name: Reload and enable frr service
+- name: Bird config
+  ansible.builtin.template:
+    src: bird.conf.j2
+    dest: /etc/bird/bird.conf
+    mode: "640"
+    owner: "bird"
+    group: "bird"
+
+- name: Stop and disable frr service
   ansible.builtin.service:
     name: frr
+    state: stopped
+    enabled: false
+
+- name: Reload bird
+  ansible.builtin.systemd_service:
+    name: bird
     state: reloaded
     enabled: true
+    daemon_reload: true
 
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:
@@ -195,3 +193,8 @@
     name: datadog-agent
     state: restarted
     enabled: true
+
+- name: Remove frr
+  ansible.builtin.apt:
+    name: frr
+    state: absent

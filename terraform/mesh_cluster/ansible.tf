@@ -29,8 +29,6 @@ resource "ansible_group" "lb" {
     ansible_ssh_private_key_file = "../terraform/${path.module}/mesh${var.mesh_env_name}"
     ansible_ssh_common_args      = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
     EXTERNAL_LISTEN_IPS          = join(";", var.mesh_external_ips)
-    LB_HOSTNAME                  = "k8s-lb-${var.mesh_env_name}"
-    INTERNAL_NETWORK_BLOCK       = format("%s/%s", var.mesh_net_block, var.mesh_networkrange)
     INTERNAL_NETWORK_RANGE       = var.mesh_networkrange
     WORKER_IPS                   = join(";", var.mesh_ips)
     NODE_PORT                    = "80"
@@ -38,6 +36,10 @@ resource "ansible_group" "lb" {
     MESH_DG                      = var.mesh_gateway
     DATADOG_API_KEY              = var.DATADOG_API_KEY
     DATADOG_SITE                 = var.DATADOG_SITE
+    BIRD_ROUTER_ID               = var.mesh_lb_ip
+    BIRD_NETWORK                 = var.bird_network
+    BIRD_NEIGHBOR                = var.bird_neighbor
+    BIRD_OSPF_COST               = var.bird_ospf_cost
   }
 }
 
