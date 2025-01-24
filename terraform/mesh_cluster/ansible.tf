@@ -36,9 +36,8 @@ resource "ansible_group" "lb" {
     MESH_DG                      = var.mesh_gateway
     DATADOG_API_KEY              = var.DATADOG_API_KEY
     DATADOG_SITE                 = var.DATADOG_SITE
-    BIRD_ROUTER_ID               = var.mesh_lb_ip
-    BIRD_NETWORK                 = var.bird_network
-    BIRD_NEIGHBOR                = var.bird_neighbor
+    bird_router_id               = var.mesh_lb_ip
+    bird_network                 = var.bird_network
     BIRD_OSPF_COST               = var.bird_ospf_cost
   }
 }

@@ -10,7 +10,6 @@
       - iptables-persistent
       - haproxy
       - openvswitch-switch-dpdk
-      - bird2
 
 - name: Add WN
   ansible.posix.authorized_key:
@@ -76,26 +75,15 @@
     state: restarted
     enabled: true
 
-- name: Bird config
-  ansible.builtin.template:
-    src: bird.conf.j2
-    dest: /etc/bird/bird.conf
-    mode: "640"
-    owner: "bird"
-    group: "bird"
-
 - name: Stop and disable frr service
   ansible.builtin.service:
     name: frr
     state: stopped
     enabled: false
 
-- name: Reload bird
-  ansible.builtin.systemd_service:
-    name: bird
-    state: reloaded
-    enabled: true
-    daemon_reload: true
+- name: Import the bird_basic role from the nycmesh.common collection
+  ansible.builtin.import_role:
+    name: nycmesh.common.bird2_basic
 
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:

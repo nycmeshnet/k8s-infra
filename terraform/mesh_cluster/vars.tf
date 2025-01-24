@@ -148,11 +148,6 @@ variable "bird_network" {
   default     = "10.69.0.0/16"
 }
 
-variable "bird_neighbor" {
-  type        = string
-  description = "bird ospf neighbor for the lb vm"
-}
-
 variable "bird_ospf_cost" {
   type        = string
   description = "OSPF cost for only bird"

@@ -21,7 +21,6 @@ module "some_mesh_cluster" {
   mesh_gateway                  = var.mesh_gateway
   mesh_networkrange             = var.mesh_networkrange
   bird_network                  = var.bird_network
-  bird_neighbor                 = var.bird_neighbor
   bird_ospf_cost                = var.bird_ospf_cost
   mesh_external_ips             = var.mesh_external_ips
   meshdb_fqdn                   = var.meshdb_fqdn
