@@ -44,5 +44,4 @@ meshdb_fqdn = [
   "los-backend.gammadb.nycmesh.net",
   "los.gammadb.nycmesh.net",
   "forms.gammadb.nycmesh.net",
-  "adminmap.gammadb.nycmesh.net",
 ]
