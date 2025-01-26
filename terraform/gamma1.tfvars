@@ -34,7 +34,6 @@ mesh_worker_disk_size = [
 mesh_lb_ip        = "10.70.90.197"
 mesh_gateway      = "10.70.90.1"
 mesh_networkrange = "24"
-mesh_net_block    = "10.70.90.0"
 mesh_external_ips = [
   "199.170.132.42",
 ]
