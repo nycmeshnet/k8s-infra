@@ -60,11 +60,6 @@ variable "mesh_networkrange" {
   default     = "24"
 }
 
-variable "mesh_net_block" {
-  description = "network range to use for intneral networking"
-  default     = "10.70.90.0"
-}
-
 variable "mesh_external_ips" {
   type        = list(string)
   description = "external ip for meshdb, assigned to the lb vm"
@@ -145,4 +140,16 @@ variable "mesh_lb_disk_size" {
   type        = number
   description = "disk size for the lb in gb"
   default     = 10
+}
+
+variable "bird_network" {
+  type        = string
+  description = "bird ospf network for the lb vm"
+  default     = "10.69.0.0/16"
+}
+
+variable "bird_ospf_cost" {
+  type        = string
+  description = "OSPF cost for only bird"
+  default     = "10"
 }

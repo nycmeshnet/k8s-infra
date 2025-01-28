@@ -42,7 +42,6 @@ mesh_lb_ram_mb    = 6144
 mesh_lb_disk_size = 10
 mesh_gateway      = "10.70.100.1"
 mesh_networkrange = "24"
-mesh_net_block    = "10.70.100.0"
 mesh_external_ips = [
   "23.158.16.22",
 ]

@@ -20,7 +20,8 @@ module "some_mesh_cluster" {
   mesh_lb_ip                    = var.mesh_lb_ip
   mesh_gateway                  = var.mesh_gateway
   mesh_networkrange             = var.mesh_networkrange
-  mesh_net_block                = var.mesh_net_block
+  bird_network                  = var.bird_network
+  bird_ospf_cost                = var.bird_ospf_cost
   mesh_external_ips             = var.mesh_external_ips
   meshdb_fqdn                   = var.meshdb_fqdn
   mesh_local_password           = var.mesh_local_password

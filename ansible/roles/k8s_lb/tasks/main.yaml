@@ -54,24 +54,6 @@
     dest: /etc/netplan/50-cloud-init.yaml
     mode: "600"
 
-- name: Install frr
-  ansible.builtin.apt:
-    update_cache: true
-    pkg:
-      - frr
-
-- name: Enable ospfd
-  ansible.builtin.lineinfile:
-    path: /etc/frr/daemons
-    search_string: ospfd=no
-    line: "ospfd=yes"
-
-- name: Config template frr
-  ansible.builtin.template:
-    src: frr.conf.j2
-    dest: /etc/frr/frr.conf
-    mode: "640"
-
 - name: Iptables rules
   ansible.builtin.template:
     src: iptables.j2
@@ -93,11 +75,15 @@
     state: restarted
     enabled: true
 
-- name: Reload and enable frr service
+- name: Stop and disable frr service
   ansible.builtin.service:
     name: frr
-    state: reloaded
-    enabled: true
+    state: stopped
+    enabled: false
+
+- name: Import the bird_basic role from the nycmesh.common collection
+  ansible.builtin.import_role:
+    name: nycmesh.common.bird2_basic
 
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:
@@ -195,3 +181,8 @@
     name: datadog-agent
     state: restarted
     enabled: true
+
+- name: Remove frr
+  ansible.builtin.apt:
+    name: frr
+    state: absent
