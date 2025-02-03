@@ -22,6 +22,7 @@ spec:
     admissionController:
       enabled: true
       mutateUnlabelled: false
+{% if "prod" in ENV_NAME %}
     apm:
       enabled: true
       instrumentation:
@@ -29,6 +30,7 @@ spec:
         enabledNamespaces:
         - meshforms
         - meshdb
+{% endif %}
     logCollection:
       enabled: true
       containerCollectAll: true
