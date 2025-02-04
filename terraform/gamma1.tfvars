@@ -17,18 +17,14 @@ mesh_mgr_disk_size = [
 ]
 mesh_ips = [
   "10.70.90.199",
-  "10.70.90.162",
 ]
 mesh_worker_cores = [
-  6,
-  6,
+  8,
 ]
 mesh_worker_ram_mb = [
-  8192,
-  8192,
+  12288,
 ]
 mesh_worker_disk_size = [
-  150,
   150,
 ]
 mesh_lb_ip        = "10.70.90.197"
