@@ -43,6 +43,7 @@ mesh_external_ips = [
   "199.170.132.46",
 ]
 meshdb_fqdn = [
+  "devwiki.mesh.nycmesh.net",
   "devdb.nycmesh.net",
   "adminmap.devdb.nycmesh.net",
   "los-backend.devdb.nycmesh.net",
