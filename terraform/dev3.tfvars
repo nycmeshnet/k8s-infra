@@ -1,8 +1,9 @@
-mesh_proxmox_node             = "jon"
+mesh_proxmox_node             = "nycmesh-713-r640-02"
 mesh_proxmox_template_image   = "debian-cloud"
 mesh_proxmox_storage_location = "local-lvm"
 mesh_env_name                 = "dev3"
 mesh_local_user               = "debian"
+vm_nic                        = "vmbr0v32"
 mesh_mgr_ips = [
   "10.70.90.146",
 ]
