@@ -52,4 +52,5 @@ meshdb_fqdn = [
   "los-backend.db.nycmesh.net",
   "mastodon.nycmesh.net",
   "gsg-displays.nycmesh.net",
+  "nyckml.mesh.nycmesh.net",
 ]
