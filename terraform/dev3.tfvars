@@ -50,5 +50,5 @@ meshdb_fqdn = [
   "los.devdb.nycmesh.net",
   "forms.devdb.nycmesh.net",
   "devmap.nycmesh.net",
-  "devnyckml.mesh.nycmesh.net",
+  "nyckmldev.mesh.nycmesh.net",
 ]
