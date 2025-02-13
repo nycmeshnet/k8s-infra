@@ -4,7 +4,7 @@ permissions: read-all
 on:
   push:
     branches:
-      - main
+      - wdn/turn-on-gamma
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     with:
       environment: gamma1
     secrets: inherit
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/wdn/turn-on-gamma'
 
   deploy_dev3:
     name: Deploy dev3
