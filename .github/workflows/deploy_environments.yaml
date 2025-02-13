@@ -4,21 +4,21 @@ permissions: read-all
 on:
   push:
     branches:
-      - main
+      - wdn/turn-on-gamma
   workflow_dispatch:
 
 jobs:
-#  deploy_gamma1:
-#    name: Deploy gamma1
-#    uses: ./.github/workflows/deploy_k8s_cluster.yaml
-#    with:
-#      environment: gamma1
-#    secrets: inherit
-#    if: github.ref == 'refs/heads/main'
+  deploy_gamma1:
+    name: Deploy gamma1
+    uses: ./.github/workflows/deploy_k8s_cluster.yaml
+    with:
+      environment: gamma1
+    secrets: inherit
+    if: github.ref == 'refs/heads/wdn/turn-on-gamma'
 
   deploy_dev3:
     name: Deploy dev3
-    #needs: deploy_gamma1
+    needs: deploy_gamma1
     uses: ./.github/workflows/deploy_k8s_cluster.yaml
     with:
       environment: dev3
