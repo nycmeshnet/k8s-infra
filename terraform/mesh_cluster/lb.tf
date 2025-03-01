@@ -5,9 +5,9 @@ resource "proxmox_vm_qemu" "k8s-lb" {
 
   clone = var.mesh_proxmox_template_image
 
-  cores                   = 2
+  cores                   = var.mesh_lb_cores
   sockets                 = 1
-  memory                  = 2560
+  memory                  = var.mesh_lb_ram_mb
   os_type                 = "cloud-init"
   agent                   = 1
   cloudinit_cdrom_storage = var.mesh_proxmox_storage_location
@@ -21,7 +21,7 @@ resource "proxmox_vm_qemu" "k8s-lb" {
       scsi0 {
         disk {
           backup  = false
-          size    = 10
+          size    = var.mesh_lb_disk_size
           storage = var.mesh_proxmox_storage_location
 
         }

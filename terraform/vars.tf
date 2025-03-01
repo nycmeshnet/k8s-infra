@@ -94,19 +94,14 @@ variable "mesh_networkrange" {
   default     = "24"
 }
 
-variable "mesh_net_block" {
-  description = "network range to use for intneral networking"
-  default     = "10.70.90.0"
-}
-
-variable "mesh_external_ip" {
-  type        = string
+variable "mesh_external_ips" {
+  type        = list(string)
   description = "external ip for meshdb, assigned to the lb vm"
 }
 
 variable "meshdb_fqdn" {
-  type        = string
-  description = "fqdn meshdb should be responding to"
+  type        = list(string)
+  description = "FQDNs the cluster should respond to"
 }
 
 variable "vm_nic" {
@@ -143,4 +138,34 @@ variable "mesh_worker_ram_mb" {
 variable "mesh_worker_disk_size" {
   type        = list(number)
   description = "list of disk sizes for worker node"
+}
+
+variable "mesh_lb_cores" {
+  type        = number
+  description = "number of cores for the lb"
+  default     = 2
+}
+
+variable "mesh_lb_ram_mb" {
+  type        = number
+  description = "ram size for the lb in mb"
+  default     = 2560
+}
+
+variable "mesh_lb_disk_size" {
+  type        = number
+  description = "disk size for the lb in gb"
+  default     = 10
+}
+
+variable "bird_network" {
+  type        = string
+  description = "bird ospf network for the lb vm"
+  default     = "10.69.0.0/16"
+}
+
+variable "bird_ospf_cost" {
+  type        = string
+  description = "OSPF cost for only bird"
+  default     = "10"
 }

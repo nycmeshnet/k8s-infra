@@ -4,6 +4,13 @@ metadata:
   name: datadog
   namespace: datadog
 spec:
+  override:
+    nodeAgent:
+      containers:
+        trace-agent:
+          env:
+          - name: DD_APM_ENV
+            value: {{ ENV_NAME }}
   global:
     originDetectionUnified:
         enabled: true
@@ -14,8 +21,18 @@ spec:
     site: us5.datadoghq.com
     clusterName: {{ ENV_NAME }}
   features:
+    admissionController:
+      enabled: true
+      mutateUnlabelled: false
+{% if "prod" in ENV_NAME %}
     apm:
       enabled: true
+      instrumentation:
+        enabled: true
+        enabledNamespaces:
+        - meshforms
+        - meshdb
+{% endif %}
     logCollection:
       enabled: true
       containerCollectAll: true
