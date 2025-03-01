@@ -12,6 +12,8 @@ spec:
           - name: DD_APM_ENV
             value: {{ ENV_NAME }}
   global:
+    originDetectionUnified:
+        enabled: true
     credentials:
       apiSecret:
         secretName: datadog-api-key
@@ -38,3 +40,6 @@ spec:
       enabled: true
     orchestratorExplorer:
       enabled: true
+    dogstatsd:
+        hostPortConfig:
+            enabled: true
