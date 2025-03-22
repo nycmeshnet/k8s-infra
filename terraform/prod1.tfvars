@@ -56,4 +56,8 @@ meshdb_fqdn = [
   "mastodon.mesh.nycmesh.net",
   "gsg-displays.nycmesh.net",
   "nyckml.mesh.nycmesh.net",
+  "adminmap.db.nycmesh.net",
+  "los.nycmesh.net",
+  "map.nycmesh.net",
+  "forms.nycmesh.net",
 ]
