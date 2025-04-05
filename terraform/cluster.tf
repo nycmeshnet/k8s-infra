@@ -18,12 +18,14 @@ module "some_mesh_cluster" {
   mesh_worker_ram_mb            = var.mesh_worker_ram_mb
   mesh_worker_disk_size         = var.mesh_worker_disk_size
   mesh_lb_ip                    = var.mesh_lb_ip
+  mesh_lb_internal_ip           = var.mesh_lb_internal_ip
   mesh_gateway                  = var.mesh_gateway
   mesh_networkrange             = var.mesh_networkrange
   bird_network                  = var.bird_network
   bird_ospf_cost                = var.bird_ospf_cost
   mesh_external_ips             = var.mesh_external_ips
   meshdb_fqdn                   = var.meshdb_fqdn
+  internal_apps_fqdn            = var.internal_apps_fqdn
   mesh_local_password           = var.mesh_local_password
   longhorn_passphrase           = var.longhorn_passphrase
   k3s_token                     = var.k3s_token
