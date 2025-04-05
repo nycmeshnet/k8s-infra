@@ -22,10 +22,6 @@ resource "ansible_group" "workers" {
   }
 }
 
-variable "mesh_lb_internal_ip" {
-  description = "static internal IP to use for k8s lb"
-}
-
 resource "ansible_group" "lb" {
   name = "lb"
   variables = {
