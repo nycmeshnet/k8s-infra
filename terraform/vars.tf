@@ -84,6 +84,10 @@ variable "mesh_lb_ip" {
   description = "static IP to use for k8s lb"
 }
 
+variable "mesh_lb_internal_ip" {
+  description = "static internal IP to use for k8s lb"
+}
+
 variable "mesh_gateway" {
   description = "default gateway to use for nodes"
   default     = "10.70.90.1"
@@ -102,6 +106,11 @@ variable "mesh_external_ips" {
 variable "meshdb_fqdn" {
   type        = list(string)
   description = "FQDNs the cluster should respond to"
+}
+
+variable "internal_apps_fqdn" {
+  type        = list(string)
+  description = "FQDNs the cluster should respond to from the internal ip"
 }
 
 variable "vm_nic" {
