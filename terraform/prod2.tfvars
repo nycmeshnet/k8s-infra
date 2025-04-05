@@ -36,12 +36,13 @@ mesh_worker_disk_size = [
   150,
   150,
 ]
-mesh_lb_ip        = "10.70.100.51"
-mesh_lb_cores     = 2
-mesh_lb_ram_mb    = 6144
-mesh_lb_disk_size = 10
-mesh_gateway      = "10.70.100.1"
-mesh_networkrange = "24"
+mesh_lb_ip          = "10.70.100.51"
+mesh_lb_internal_ip = "10.70.100.63"
+mesh_lb_cores       = 2
+mesh_lb_ram_mb      = 6144
+mesh_lb_disk_size   = 10
+mesh_gateway        = "10.70.100.1"
+mesh_networkrange   = "24"
 mesh_external_ips = [
   "23.158.16.22",
 ]
@@ -49,4 +50,8 @@ meshdb_fqdn = [
   "db.nycmesh.net",
   "stats-new.nycmesh.net",
   "stats.nycmesh.net",
+]
+
+internal_apps_fqdn = [
+  "jamesinternalprod2.mesh.nycmesh.net",
 ]
