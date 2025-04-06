@@ -1,6 +1,6 @@
 #!/bin/bash
 
-certbot_domain="{{ certbot_get_cert_for_domain }}"
+certbot_domain="{{ internal_apps_fqdn }}"
 full_chain_path="/etc/letsencrypt/live/$certbot_domain/fullchain.pem"
 priv_key_path="/etc/letsencrypt/live/$certbot_domain/privkey.pem"
 CERTS_DIR="/etc/haproxy/ssl_internal/"
