@@ -99,6 +99,8 @@
   vars:
     certbot_update_hour: "4"
     certbot_get_cert_for_domain: "{{ internal_apps_fqdn }}"
+    certbot_tsig_key: "{{ tsig_key }}"
+    certbot_main_auth_dns_server: "199.170.132.47"
 
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:

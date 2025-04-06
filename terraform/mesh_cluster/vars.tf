@@ -162,3 +162,9 @@ variable "bird_ospf_cost" {
   description = "OSPF cost for only bird"
   default     = "10"
 }
+
+variable "tsig_key" {
+  type        = string
+  description = "TSIG key for internal certs"
+  sensitive   = true
+}
