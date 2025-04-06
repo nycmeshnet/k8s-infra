@@ -86,8 +86,8 @@
     name: nycmesh.common.bird2_basic
 
 - name: Copy certbot post update
-  ansible.builtin.copy:
-    src: certbot_post_update.sh
+  ansible.builtin.template:
+    src: certbot_post_update.sh.j2
     dest: /root/certbot_post_update.sh
     owner: "root"
     group: "root"
