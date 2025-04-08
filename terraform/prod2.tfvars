@@ -50,6 +50,10 @@ meshdb_fqdn = [
   "db.nycmesh.net",
   "stats-new.nycmesh.net",
   "stats.nycmesh.net",
+  "adminmap.db.nycmesh.net",
+  "los.nycmesh.net",
+  "map.nycmesh.net",
+  "forms.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
