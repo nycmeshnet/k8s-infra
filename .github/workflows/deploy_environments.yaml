@@ -5,12 +5,11 @@ on:
   push:
     branches:
       - main
-      - james/internal_ip
   workflow_dispatch:
 
 jobs:
 #  deploy_gamma1:
-#    name: Deploy gamma1
+#    name: Deplhttps://github.com/nycmeshnet/k8s-infra/pull/90oy gamma1
 #    uses: ./.github/workflows/deploy_k8s_cluster.yaml
 #    with:
 #      environment: gamma1
@@ -23,7 +22,7 @@ jobs:
     with:
       environment: dev3
     secrets: inherit
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
 
   deploy_prod1:
     name: Deploy prod1
