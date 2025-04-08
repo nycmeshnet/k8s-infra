@@ -168,3 +168,9 @@ variable "tsig_key" {
   description = "TSIG key for internal certs"
   sensitive   = true
 }
+
+variable "tsig_key_name" {
+  type        = string
+  description = "name of the TSIG key for internal certs"
+  sensitive   = true
+}

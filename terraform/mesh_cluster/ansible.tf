@@ -43,6 +43,7 @@ resource "ansible_group" "lb" {
     bird_network                 = var.bird_network
     BIRD_OSPF_COST               = var.bird_ospf_cost
     tsig_key                     = var.tsig_key
+    tsig_key_name                = var.tsig_key_name
   }
 }
 

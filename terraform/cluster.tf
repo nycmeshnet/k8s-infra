@@ -33,4 +33,5 @@ module "some_mesh_cluster" {
   DATADOG_SITE                  = var.DATADOG_SITE
   vm_nic                        = var.vm_nic
   tsig_key                      = var.tsig_key
+  tsig_key_name                 = var.tsig_key_name
 }
