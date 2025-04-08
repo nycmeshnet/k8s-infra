@@ -1,8 +1,7 @@
 #!/bin/bash
 
-certbot_domain="{{ internal_apps_fqdn }}"
-full_chain_path="/etc/letsencrypt/live/$certbot_domain/fullchain.pem"
-priv_key_path="/etc/letsencrypt/live/$certbot_domain/privkey.pem"
+full_chain_path="/etc/letsencrypt/live/tsig_cert/fullchain.pem"
+priv_key_path="/etc/letsencrypt/live/tsig_cert/privkey.pem"
 CERTS_DIR="/etc/haproxy/ssl_internal/"
 
 # Only update the certs if they exist, otherwise fail here before something broken is rolled out
