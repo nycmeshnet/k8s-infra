@@ -55,6 +55,5 @@ meshdb_fqdn = [
 ]
 
 internal_apps_fqdn = [
-  "jamesinternaldev3.mesh.nycmesh.net",
   "building-dev.mesh.nycmesh.net",
 ]
