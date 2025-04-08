@@ -36,9 +36,10 @@ mesh_worker_disk_size = [
   250,
   250,
 ]
-mesh_lb_ip        = "10.70.90.145"
-mesh_gateway      = "10.70.90.1"
-mesh_networkrange = "24"
+mesh_lb_ip          = "10.70.90.145"
+mesh_lb_internal_ip = "10.70.90.210"
+mesh_gateway        = "10.70.90.1"
+mesh_networkrange   = "24"
 mesh_external_ips = [
   "199.170.132.46",
 ]
@@ -51,4 +52,8 @@ meshdb_fqdn = [
   "forms.devdb.nycmesh.net",
   "devmap.nycmesh.net",
   "nyckmldev.mesh.nycmesh.net",
+]
+
+internal_apps_fqdn = [
+  "building-dev.mesh.nycmesh.net",
 ]

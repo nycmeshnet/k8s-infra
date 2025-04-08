@@ -48,6 +48,12 @@
     mode: "600"
   when: EXTERNAL_LISTEN_IPS | split(';') | length == 2
 
+- name: Netplan dummy2 interface
+  ansible.builtin.template:
+    src: netplan_dummy2.yaml.j2
+    dest: /etc/netplan/dummy2.yaml
+    mode: "600"
+
 - name: Netplan eth0 interface
   ansible.builtin.template:
     src: netplan_50_cloud_init.yaml.j2
@@ -79,6 +85,24 @@
   ansible.builtin.import_role:
     name: nycmesh.common.bird2_basic
 
+- name: Copy certbot post update
+  ansible.builtin.template:
+    src: certbot_post_update.sh.j2
+    dest: /root/certbot_post_update.sh
+    owner: "root"
+    group: "root"
+    mode: "644"
+
+- name: Import the certbot_rfc2136 role from the nycmesh.common collection
+  ansible.builtin.import_role:
+    name: nycmesh.common.certbot_rfc2136
+  vars:
+    certbot_update_hour: "4"
+    certbot_get_cert_for_domain: "{{ internal_apps_fqdn }}"
+    certbot_tsig_key: "{{ tsig_key }}"
+    certbot_tsig_key_name: "{{ tsig_key_name }}"
+    certbot_main_auth_dns_server: "199.170.132.47"
+
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
@@ -90,6 +114,12 @@
 - name: Create ssl certs directory if it does not exist
   ansible.builtin.file:
     path: /etc/haproxy/ssl
+    state: directory
+    mode: "0755"
+
+- name: Create ssl_internal certs directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/haproxy/ssl_internal
     state: directory
     mode: "0755"
 
@@ -112,6 +142,11 @@
     path: "/etc/haproxy/ssl/lb.pem"
   register: lb_cert_file
 
+- name: Check if file internal ssl cert exists
+  ansible.builtin.stat:
+    path: "/etc/haproxy/ssl_internal/lb.pem"
+  register: lb_internal_cert_file
+
 - name: Config template haproxy
   ansible.builtin.template:
     src: haproxy.cfg
@@ -125,23 +160,34 @@
     line: "#no ssl yet"
   when: not lb_cert_file.stat.exists
 
+- name: Temporarily disable internal ssl (no cert yet)
+  ansible.builtin.lineinfile:
+    path: /etc/haproxy/haproxy.cfg
+    search_string: /etc/haproxy/ssl_internal/
+    line: "#no ssl yet"
+  when: not lb_internal_cert_file.stat.exists
+
 - name: Restart and enable haproxy service
   ansible.builtin.service:
     name: haproxy
     state: restarted
     enabled: true
-  when: not lb_cert_file.stat.exists
+  when: not lb_cert_file.stat.exists or not lb_internal_cert_file.stat.exists
 
 - name: Get cert
   ansible.builtin.command:
     cmd: /root/certbot.sh
+
+- name: Get internal cert
+  ansible.builtin.command:
+    cmd: /root/certbot_tsig.sh
 
 - name: Re-apply config template haproxy (because certs should exist)
   ansible.builtin.template:
     src: haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
     mode: "644"
-  when: not lb_cert_file.stat.exists
+  when: not lb_cert_file.stat.exists or not lb_internal_cert_file.stat.exists
 
 - name: Reload and enable haproxy service
   ansible.builtin.service:
@@ -153,6 +199,13 @@
   ansible.builtin.lineinfile:
     path: /etc/cron.d/certbot_update_cert
     line: "2 1 * * 1   root    bash /root/certbot.sh 2>&1 > /dev/null"
+    create: true
+    mode: "600"
+
+- name: Crontab tsig cert
+  ansible.builtin.lineinfile:
+    path: /etc/cron.d/certbot_update_cert
+    line: "7 1 * * 1   root    bash /root/certbot_tsig.sh 2>&1 > /dev/null"
     create: true
     mode: "600"
 
