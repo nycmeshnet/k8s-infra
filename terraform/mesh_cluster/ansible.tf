@@ -44,6 +44,7 @@ resource "ansible_group" "lb" {
     BIRD_OSPF_COST               = var.bird_ospf_cost
     tsig_key                     = var.tsig_key
     tsig_key_name                = var.tsig_key_name
+    tsig_main_dns_ip             = var.tsig_main_dns_ip
   }
 }
 

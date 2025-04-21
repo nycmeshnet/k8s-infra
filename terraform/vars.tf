@@ -190,3 +190,8 @@ variable "tsig_key_name" {
   description = "name of the TSIG key for internal certs"
   sensitive   = true
 }
+
+variable "tsig_main_dns_ip" {
+  type        = string
+  description = "IP of the authoritative DNS server to use for tsig"
+}

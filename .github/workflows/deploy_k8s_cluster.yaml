@@ -20,6 +20,7 @@ env:
   TF_VAR_longhorn_passphrase: ${{ secrets.LONGHORN_PASSPHRASE }}
   TF_VAR_tsig_key: ${{ secrets.TSIG_KEY }}
   TF_VAR_tsig_key_name: "k8s.lb.${{ vars.ENV_NAME }}"
+  TF_VAR_tsig_main_dns_ip: "${{ vars.TSIG_DNS_IP }}"
   # Credentials for deployment to AWS
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
