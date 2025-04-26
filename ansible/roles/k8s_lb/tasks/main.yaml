@@ -101,7 +101,7 @@
     certbot_get_cert_for_domain: "{{ internal_apps_fqdn }}"
     certbot_tsig_key: "{{ tsig_key }}"
     certbot_tsig_key_name: "{{ tsig_key_name }}"
-    certbot_main_auth_dns_server: "199.170.132.47"
+    certbot_main_auth_dns_server: "{{ tsig_main_dns_ip }}"
 
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:
