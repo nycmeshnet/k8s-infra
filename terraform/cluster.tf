@@ -34,4 +34,5 @@ module "some_mesh_cluster" {
   vm_nic                        = var.vm_nic
   tsig_key                      = var.tsig_key
   tsig_key_name                 = var.tsig_key_name
+  tsig_main_dns_ip              = var.tsig_main_dns_ip
 }

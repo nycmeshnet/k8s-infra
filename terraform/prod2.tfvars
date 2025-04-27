@@ -57,5 +57,5 @@ meshdb_fqdn = [
 ]
 
 internal_apps_fqdn = [
-  "jamesinternalprod2.mesh.nycmesh.net",
+  "jamesinternalprodtwo.mesh.nycmesh.net",
 ]
