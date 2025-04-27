@@ -52,6 +52,11 @@ meshdb_fqdn = [
   "forms.devdb.nycmesh.net",
   "devmap.nycmesh.net",
   "nyckmldev.mesh.nycmesh.net",
+<<<<<<< Updated upstream
+=======
+  "devpano.nycmesh.net",
+  "img.devpano.nycmesh.net",
+>>>>>>> Stashed changes
 ]
 
 internal_apps_fqdn = [
