@@ -53,6 +53,7 @@ meshdb_fqdn = [
   "devmap.nycmesh.net",
   "nyckmldev.mesh.nycmesh.net",
   "devpano.nycmesh.net",
+  "devimg.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
