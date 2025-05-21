@@ -23,13 +23,13 @@ mesh_ips = [
   "10.70.90.157",
 ]
 mesh_worker_cores = [
-  4,
+  6,
   6,
   6,
   6,
 ]
 mesh_worker_ram_mb = [
-  4096,
+  8192,
   8192,
   8192,
   8192,
