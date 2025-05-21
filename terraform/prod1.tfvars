@@ -26,13 +26,13 @@ mesh_worker_cores = [
   4,
   4,
   4,
-  4,
+  6,
 ]
 mesh_worker_ram_mb = [
   4096,
   4096,
   4096,
-  4096,
+  8192,
 ]
 mesh_worker_disk_size = [
   150,
