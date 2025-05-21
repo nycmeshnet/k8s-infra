@@ -47,7 +47,7 @@ mesh_external_ips = [
   "23.158.16.22",
 ]
 meshdb_fqdn = [
-  "db.nycmesh.net",
+  "sn10temp.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
