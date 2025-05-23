@@ -8,10 +8,10 @@ mesh_mgr_ips = [
   "10.70.90.152",
 ]
 mesh_mgr_cores = [
-  4,
+  6,
 ]
 mesh_mgr_ram_mb = [
-  4096,
+  8192,
 ]
 mesh_mgr_disk_size = [
   50,
