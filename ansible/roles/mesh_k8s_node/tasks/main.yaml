@@ -1,4 +1,3 @@
-
 - name: Install packages on each node
   ansible.builtin.apt:
     pkg:

@@ -12,6 +12,8 @@ spec:
           - name: DD_APM_ENV
             value: {{ ENV_NAME }}
   global:
+    originDetectionUnified:
+        enabled: true
     credentials:
       apiSecret:
         secretName: datadog-api-key
@@ -22,13 +24,14 @@ spec:
     admissionController:
       enabled: true
       mutateUnlabelled: false
+{% if "prod" in ENV_NAME %}
     apm:
       enabled: true
       instrumentation:
         enabled: true
         enabledNamespaces:
         - meshforms
-        - meshdb
+{% endif %}
     logCollection:
       enabled: true
       containerCollectAll: true
@@ -36,3 +39,6 @@ spec:
       enabled: true
     orchestratorExplorer:
       enabled: true
+    dogstatsd:
+        hostPortConfig:
+            enabled: true
