@@ -59,7 +59,6 @@ meshdb_fqdn = [
   "los.nycmesh.net",
   "map.nycmesh.net",
   "forms.nycmesh.net",
-  "stats-new.nycmesh.net",
   "stats.nycmesh.net",
   "db.nycmesh.net",
   "mastodon.nycmesh.net",
