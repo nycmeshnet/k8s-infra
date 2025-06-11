@@ -20,9 +20,6 @@ jobs:
         with:
           terraform_version: 1.8.3
 
-      - name: Setup ansible
-        run: pip install --require-hashes -r ansible/requirements.txt
-
       - name: Terraform format
         id: fmt
         run: terraform fmt -check
