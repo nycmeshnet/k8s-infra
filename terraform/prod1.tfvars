@@ -71,4 +71,5 @@ meshdb_fqdn = [
 
 internal_apps_fqdn = [
   "building.mesh.nycmesh.net",
+  "devairflow.mesh.nycmesh.net",
 ]
