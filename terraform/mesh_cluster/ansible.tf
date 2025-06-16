@@ -34,6 +34,7 @@ resource "ansible_group" "lb" {
     WORKER_IPS                   = join(";", var.mesh_ips)
     NODE_PORT                    = "80"
     BUILDING_NODE_PORT           = "30001"
+    AIRFLOW_NODE_PORT            = "30002"
     MESHDB_FQDN                  = join(",", var.meshdb_fqdn)
     internal_apps_fqdn           = join(",", var.internal_apps_fqdn)
     MESH_DG                      = var.mesh_gateway
