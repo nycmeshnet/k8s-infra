@@ -14,3 +14,10 @@ updates:
     cronjob: "4 7 * * *"
   assignees:
    - "james-otten"
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "cron"
+    cronjob: "44 7 * * *"
+  assignees:
+   - "james-otten"
