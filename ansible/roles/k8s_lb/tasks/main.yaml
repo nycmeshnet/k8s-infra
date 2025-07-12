@@ -140,12 +140,12 @@
 - name: Check if file exists
   ansible.builtin.stat:
     path: "/etc/haproxy/ssl/lb.pem"
-  register: lb_cert_file
+  register: k8s_lb_lb_cert_file
 
 - name: Check if file internal ssl cert exists
   ansible.builtin.stat:
     path: "/etc/haproxy/ssl_internal/lb.pem"
-  register: lb_internal_cert_file
+  register: k8s_lb_lb_internal_cert_file
 
 - name: Config template haproxy
   ansible.builtin.template:
@@ -158,21 +158,21 @@
     path: /etc/haproxy/haproxy.cfg
     search_string: /etc/haproxy/ssl/
     line: "#no ssl yet"
-  when: not lb_cert_file.stat.exists
+  when: not k8s_lb_lb_cert_file.stat.exists
 
 - name: Temporarily disable internal ssl (no cert yet)
   ansible.builtin.lineinfile:
     path: /etc/haproxy/haproxy.cfg
     search_string: /etc/haproxy/ssl_internal/
     line: "#no ssl yet"
-  when: not lb_internal_cert_file.stat.exists
+  when: not k8s_lb_lb_internal_cert_file.stat.exists
 
 - name: Restart and enable haproxy service
   ansible.builtin.service:
     name: haproxy
     state: restarted
     enabled: true
-  when: not lb_cert_file.stat.exists or not lb_internal_cert_file.stat.exists
+  when: not k8s_lb_lb_cert_file.stat.exists or not k8s_lb_lb_internal_cert_file.stat.exists
 
 - name: Get cert
   ansible.builtin.command:
@@ -187,7 +187,7 @@
     src: haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
     mode: "644"
-  when: not lb_cert_file.stat.exists or not lb_internal_cert_file.stat.exists
+  when: not k8s_lb_lb_cert_file.stat.exists or not k8s_lb_lb_internal_cert_file.stat.exists
 
 - name: Reload and enable haproxy service
   ansible.builtin.service:
