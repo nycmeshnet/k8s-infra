@@ -12,5 +12,5 @@ else
     cat $priv_key_path > $CERTS_DIR/lb.pem.key
 fi
 
-# Reload the service
-service haproxy reload
+# Restart the service
+service haproxy restart
