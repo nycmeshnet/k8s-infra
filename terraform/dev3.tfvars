@@ -55,6 +55,10 @@ meshdb_fqdn = [
   "devpano.nycmesh.net",
   "api.devpano.nycmesh.net",
   "devimg.nycmesh.net",
+  "chat.matrix.nycmesh.net",
+  "synapse.matrix.nycmesh.net",
+  "account.matrix.nycmesh.net",
+  "mrtc.matrix.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
