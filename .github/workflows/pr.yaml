@@ -25,6 +25,9 @@ jobs:
         run: terraform fmt -check
         working-directory: ./terraform/
 
+      - name: Setup ansible
+        run: pip install --require-hashes -r ansible/requirements.txt && export PATH="$HOME/.local/bin:$PATH" && ansible-galaxy collection install --force -r ansible/roles/requirements.yml
+
       - name: Run Checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@8f61ce5b8a3afb4ca94d236b75201878ded6d2cd
