@@ -25,6 +25,9 @@ jobs:
         run: terraform fmt -check
         working-directory: ./terraform/
 
+      - name: Setup ansible
+        run: pip install --require-hashes -r ansible/requirements.txt && export PATH="$HOME/.local/bin:$PATH" && ansible-galaxy collection install --force -r ansible/roles/requirements.yml
+
       - name: Run Checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@f34885219720066007f948b843e747bb136aa223
@@ -42,7 +45,7 @@ jobs:
           sarif_file: results.sarif
 
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@a2bc8b8b13a80802215856c56823d85007d3baf5 # v25
+        uses: ansible/ansible-lint@7f6abc5ef97d0fb043a0f3d416dfbc74399fbda0 # v25
         with:
           args: ""
           setup_python: "true"
