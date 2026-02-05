@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup Terraform with specified version on the runner
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # @v3
@@ -25,9 +25,12 @@ jobs:
         run: terraform fmt -check
         working-directory: ./terraform/
 
+      - name: Setup ansible
+        run: pip install --require-hashes -r ansible/requirements.txt && export PATH="$HOME/.local/bin:$PATH" && ansible-galaxy collection install --force -r ansible/roles/requirements.yml
+
       - name: Run Checkov action
         id: checkov
-        uses: bridgecrewio/checkov-action@7e3930d7acb8482fd506c495250290b269e2e640
+        uses: bridgecrewio/checkov-action@f34885219720066007f948b843e747bb136aa223
         with:
           skip_check: CKV_DOCKER_2,CKV_DOCKER_3,CKV_SECRET_6
           quiet: true
@@ -36,13 +39,13 @@ jobs:
           download_external_modules: true
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3
+        uses: github/codeql-action/upload-sarif@6bc82e05fd0ea64601dd4b465378bbcf57de0314 # v3
         if: success() || failure()
         with:
           sarif_file: results.sarif
 
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@50373efb440dd3b524956c075af715cd00eaf20b # v25
+        uses: ansible/ansible-lint@7f6abc5ef97d0fb043a0f3d416dfbc74399fbda0 # v25
         with:
           args: ""
           setup_python: "true"

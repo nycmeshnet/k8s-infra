@@ -72,4 +72,6 @@ meshdb_fqdn = [
 internal_apps_fqdn = [
   "building.mesh.nycmesh.net",
   "airflow.mesh.nycmesh.net",
+  "jenkins.mesh.nycmesh.net",
+  "paste.mesh.nycmesh.net",
 ]
