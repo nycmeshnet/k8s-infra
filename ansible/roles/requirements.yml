@@ -7,6 +7,8 @@ collections:
     version: 5.8.0
   - name: cloud.terraform
     version: 3.0.0
+  - name: ansible.posix
+    version: 2.1.0
   - name: nycmesh.common
     source: git+https://github.com/nycmeshnet/nycmesh-ansible.git
     type: git
