@@ -61,6 +61,7 @@ meshdb_fqdn = [
   "synapse.matrix.nycmesh.net",
   "account.matrix.nycmesh.net",
   "mrtc.matrix.nycmesh.net",
+  "map-v2.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
