@@ -38,7 +38,7 @@ mesh_worker_ram_mb = [
   8192,
 ]
 mesh_worker_disk_size = [
-  150,
+  200,
   150,
   150,
   150,
