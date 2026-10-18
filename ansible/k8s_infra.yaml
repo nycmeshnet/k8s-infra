@@ -35,5 +35,5 @@
   hosts: lb
   become: true
   roles:
-    - role: monitoring
+    # - role: monitoring # XXX (wdn): Removing Datadog due to perf issues
     - role: k8s_lb
