@@ -12,13 +12,19 @@ resource "proxmox_vm_qemu" "meshwkr" {
   memory                  = var.mesh_worker_ram_mb[count.index]
   os_type                 = "cloud-init"
   agent                   = 1
-  cloudinit_cdrom_storage = var.mesh_proxmox_storage_location
   ciuser                  = var.mesh_local_user
   cipassword              = var.mesh_local_password
 
   scsihw = "virtio-scsi-pci"
 
   disks {
+    ide {
+      ide3 {
+        cloudinit {
+          storage = var.mesh_proxmox_storage_location
+        }
+      }
+    }
     scsi {
       scsi0 {
         disk {
@@ -32,6 +38,7 @@ resource "proxmox_vm_qemu" "meshwkr" {
   }
 
   network {
+    id     = 0
     bridge = var.vm_nic
     model  = "virtio"
   }
