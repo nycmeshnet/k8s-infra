@@ -1,4 +1,4 @@
-mesh_proxmox_node             = "nycmesh-11-r640-02"
+mesh_proxmox_node             = "nycmesh-10-app-02"
 mesh_proxmox_template_image   = "debian-cloud"
 mesh_proxmox_storage_location = "local-lvm"
 mesh_env_name                 = "prod3"

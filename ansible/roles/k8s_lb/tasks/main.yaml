@@ -5,7 +5,7 @@
     pkg:
       - ca-certificates
       - python3-pip
-      - python3.11-venv
+      - python3.13-venv
       - cron
       - iptables-persistent
       - haproxy
