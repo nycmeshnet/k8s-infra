@@ -5,3 +5,4 @@ meshdbdev3.pub
 node-token
 k3s.*.yaml
 k3s.yaml
+mesh_cluster/meshprod*
