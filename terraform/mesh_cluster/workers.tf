@@ -2,7 +2,7 @@ resource "proxmox_vm_qemu" "meshwkr" {
   count = length(var.mesh_ips)
 
   name        = "mesh${var.mesh_env_name}node${count.index}"
-  desc        = "worker ${count.index} for mesh services ${var.mesh_env_name}"
+  description = "worker ${count.index} for mesh services ${var.mesh_env_name}"
   target_node = var.mesh_proxmox_node
 
   clone = var.mesh_proxmox_template_image
@@ -12,13 +12,19 @@ resource "proxmox_vm_qemu" "meshwkr" {
   memory                  = var.mesh_worker_ram_mb[count.index]
   os_type                 = "cloud-init"
   agent                   = 1
-  cloudinit_cdrom_storage = var.mesh_proxmox_storage_location
   ciuser                  = var.mesh_local_user
   cipassword              = var.mesh_local_password
 
   scsihw = "virtio-scsi-pci"
 
   disks {
+    ide {
+      ide3 {
+        cloudinit {
+          storage = var.mesh_proxmox_storage_location
+        }
+      }
+    }
     scsi {
       scsi0 {
         disk {
@@ -32,6 +38,7 @@ resource "proxmox_vm_qemu" "meshwkr" {
   }
 
   network {
+    id     = 0
     bridge = var.vm_nic
     model  = "virtio"
   }
