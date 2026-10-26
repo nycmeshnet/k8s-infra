@@ -1,6 +1,6 @@
 resource "proxmox_vm_qemu" "k8s-lb" {
   name        = "k8s-lb-${var.mesh_env_name}"
-  desc        = "router and lb for k8s"
+  description = "router and lb for k8s"
   target_node = var.mesh_proxmox_node
 
   clone = var.mesh_proxmox_template_image

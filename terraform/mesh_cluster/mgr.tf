@@ -2,7 +2,7 @@ resource "proxmox_vm_qemu" "meshmgr" {
   count = length(var.mesh_mgr_ips)
 
   name        = "mesh${var.mesh_env_name}mgr${count.index}"
-  desc        = "managment server for mesh services ${var.mesh_env_name}"
+  description = "managment server for mesh services ${var.mesh_env_name}"
   target_node = var.mesh_proxmox_node
 
   clone = var.mesh_proxmox_template_image

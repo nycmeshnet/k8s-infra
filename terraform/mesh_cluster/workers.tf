@@ -2,7 +2,7 @@ resource "proxmox_vm_qemu" "meshwkr" {
   count = length(var.mesh_ips)
 
   name        = "mesh${var.mesh_env_name}node${count.index}"
-  desc        = "worker ${count.index} for mesh services ${var.mesh_env_name}"
+  description = "worker ${count.index} for mesh services ${var.mesh_env_name}"
   target_node = var.mesh_proxmox_node
 
   clone = var.mesh_proxmox_template_image

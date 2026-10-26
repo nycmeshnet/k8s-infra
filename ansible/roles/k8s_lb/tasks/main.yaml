@@ -23,9 +23,14 @@
     state: present
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqMvlwLFwGENT5WMjytI2iwVlHPV2TX+gOgBXj9kw4k andrew@localhost"
 
+- name: Remove stale certbot virtualenv
+  ansible.builtin.file:
+    path: /root/certbot_venv
+    state: absent
+
 - name: Install certbot
   ansible.builtin.pip:
-    name: certbot==2.11.0
+    name: certbot>=2.11.0
     virtualenv: /root/certbot_venv
     virtualenv_command: python3 -m venv
 
@@ -34,6 +39,15 @@
     src: certbot.sh.j2
     dest: /root/certbot.sh
     mode: "700"
+
+- name: Get MAC address for eth0
+  ansible.builtin.command: cat /sys/class/net/eth0/address
+  register: eth0_mac_result
+  changed_when: false
+
+- name: Set eth0 MAC address
+  ansible.builtin.set_fact:
+    eth0_macaddress: "{{ eth0_mac_result.stdout | default('') | lower }}"
 
 - name: Netplan dummy0 interface
   ansible.builtin.template:
