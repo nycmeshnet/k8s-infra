@@ -39,6 +39,7 @@
     src: certbot.sh.j2
     dest: /root/certbot.sh
     mode: "700"
+  when: MESHDB_FQDN | length > 0
 
 - name: Get MAC address for eth0
   ansible.builtin.command: cat /sys/class/net/eth0/address
@@ -161,6 +162,7 @@
   ansible.builtin.stat:
     path: "/etc/haproxy/ssl_internal/lb.pem"
   register: k8s_lb_lb_internal_cert_file
+  when: internal_apps_fqdn | length > 0
 
 - name: Config template haproxy
   ansible.builtin.template:
@@ -180,29 +182,31 @@
     path: /etc/haproxy/haproxy.cfg
     search_string: /etc/haproxy/ssl_internal/
     line: "#no ssl yet"
-  when: not k8s_lb_lb_internal_cert_file.stat.exists
+  when: internal_apps_fqdn | length > 0 and not k8s_lb_lb_internal_cert_file.stat.exists
 
 - name: Restart and enable haproxy service
   ansible.builtin.service:
     name: haproxy
     state: restarted
     enabled: true
-  when: not k8s_lb_lb_cert_file.stat.exists or not k8s_lb_lb_internal_cert_file.stat.exists
+  when: not k8s_lb_lb_cert_file.stat.exists or (internal_apps_fqdn | length > 0 and not k8s_lb_lb_internal_cert_file.stat.exists)
 
 - name: Get cert
   ansible.builtin.command:
     cmd: /root/certbot.sh
+  when: MESHDB_FQDN | length > 0
 
 - name: Get internal cert
   ansible.builtin.command:
     cmd: /root/certbot_tsig.sh
+  when: internal_apps_fqdn | length > 0
 
 - name: Re-apply config template haproxy (because certs should exist)
   ansible.builtin.template:
     src: haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
     mode: "644"
-  when: not k8s_lb_lb_cert_file.stat.exists or not k8s_lb_lb_internal_cert_file.stat.exists
+  when: not k8s_lb_lb_cert_file.stat.exists or (internal_apps_fqdn | length > 0 and not k8s_lb_lb_internal_cert_file.stat.exists)
 
 - name: Reload and enable haproxy service
   ansible.builtin.service:
@@ -216,6 +220,7 @@
     line: "2 1 * * 1   root    bash /root/certbot.sh 2>&1 > /dev/null"
     create: true
     mode: "600"
+  when: MESHDB_FQDN | length > 0
 
 - name: Crontab tsig cert
   ansible.builtin.lineinfile:
@@ -223,6 +228,7 @@
     line: "7 1 * * 1   root    bash /root/certbot_tsig.sh 2>&1 > /dev/null"
     create: true
     mode: "600"
+  when: internal_apps_fqdn | length > 0
 
 - name: Restart and enable cron service
   ansible.builtin.service:
@@ -237,12 +243,14 @@
     owner: dd-agent
     group: dd-agent
     mode: "644"
+  when: DATADOG_API_KEY is not none and (DATADOG_API_KEY | string | trim) != ''
 
 - name: Reload datadog
   ansible.builtin.systemd_service:
     name: datadog-agent
     state: restarted
     enabled: true
+  when: DATADOG_API_KEY is not none and (DATADOG_API_KEY | string | trim) != ''
 
 - name: Remove frr
   ansible.builtin.apt:
