@@ -9,7 +9,7 @@
     - role: k3s.orchestration.k3s_server # k3s-ansible
     - role: k8s_cluster_helm
   vars:
-    k3s_version: v1.30.2+k3s2
+    k3s_version: v1.37.1+k3s1
     api_endpoint: "{{ K3S_API_ENDPOINT }}"
     token: "{{ K3S_TOKEN }}"
     extra_server_args: ""
@@ -25,7 +25,7 @@
     - role: k3s.orchestration.prereq # k3s-ansible
     - role: k3s.orchestration.k3s_agent # k3s-ansible
   vars:
-    k3s_version: v1.30.2+k3s2
+    k3s_version: v1.37.1+k3s1
     api_endpoint: "{{ K3S_API_ENDPOINT }}"
     token: "{{ K3S_TOKEN }}"
     extra_server_args: ""
