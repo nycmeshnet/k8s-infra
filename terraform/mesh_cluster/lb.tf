@@ -1,22 +1,29 @@
 resource "proxmox_vm_qemu" "k8s-lb" {
   name        = "k8s-lb-${var.mesh_env_name}"
-  desc        = "router and lb for k8s"
+  description = "router and lb for k8s"
   target_node = var.mesh_proxmox_node
 
-  clone = var.mesh_proxmox_template_image
+  clone                = var.mesh_proxmox_template_image
+  start_at_node_boot   = true
 
   cores                   = var.mesh_lb_cores
   sockets                 = 1
   memory                  = var.mesh_lb_ram_mb
   os_type                 = "cloud-init"
   agent                   = 1
-  cloudinit_cdrom_storage = var.mesh_proxmox_storage_location
   ciuser                  = var.mesh_local_user
   cipassword              = var.mesh_local_password
 
   scsihw = "virtio-scsi-pci"
 
   disks {
+    ide {
+      ide3 {
+        cloudinit {
+          storage = var.mesh_proxmox_storage_location
+        }
+      }
+    }
     scsi {
       scsi0 {
         disk {
@@ -30,6 +37,7 @@ resource "proxmox_vm_qemu" "k8s-lb" {
   }
 
   network {
+    id     = 0
     bridge = var.vm_nic
     model  = "virtio"
   }

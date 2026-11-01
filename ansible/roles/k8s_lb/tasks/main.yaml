@@ -5,7 +5,7 @@
     pkg:
       - ca-certificates
       - python3-pip
-      - python3.11-venv
+      - python3.13-venv
       - cron
       - iptables-persistent
       - haproxy
@@ -23,9 +23,14 @@
     state: present
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqMvlwLFwGENT5WMjytI2iwVlHPV2TX+gOgBXj9kw4k andrew@localhost"
 
+- name: Remove stale certbot virtualenv
+  ansible.builtin.file:
+    path: /root/certbot_venv
+    state: absent
+
 - name: Install certbot
   ansible.builtin.pip:
-    name: certbot==2.11.0
+    name: certbot>=2.11.0
     virtualenv: /root/certbot_venv
     virtualenv_command: python3 -m venv
 
@@ -34,6 +39,16 @@
     src: certbot.sh.j2
     dest: /root/certbot.sh
     mode: "700"
+  when: MESHDB_FQDN | length > 0
+
+- name: Get MAC address for eth0
+  ansible.builtin.command: cat /sys/class/net/eth0/address
+  register: eth0_mac_result
+  changed_when: false
+
+- name: Set eth0 MAC address
+  ansible.builtin.set_fact:
+    eth0_macaddress: "{{ eth0_mac_result.stdout | default('') | lower }}"
 
 - name: Netplan dummy0 interface
   ansible.builtin.template:
@@ -102,6 +117,7 @@
     certbot_tsig_key: "{{ tsig_key }}"
     certbot_tsig_key_name: "{{ tsig_key_name }}"
     certbot_main_auth_dns_server: "{{ tsig_main_dns_ip }}"
+  when: internal_apps_fqdn | length > 0
 
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:
@@ -146,6 +162,7 @@
   ansible.builtin.stat:
     path: "/etc/haproxy/ssl_internal/lb.pem"
   register: k8s_lb_lb_internal_cert_file
+  when: internal_apps_fqdn | length > 0
 
 - name: Config template haproxy
   ansible.builtin.template:
@@ -165,29 +182,31 @@
     path: /etc/haproxy/haproxy.cfg
     search_string: /etc/haproxy/ssl_internal/
     line: "#no ssl yet"
-  when: not k8s_lb_lb_internal_cert_file.stat.exists
+  when: internal_apps_fqdn | length > 0 and not k8s_lb_lb_internal_cert_file.stat.exists
 
 - name: Restart and enable haproxy service
   ansible.builtin.service:
     name: haproxy
     state: restarted
     enabled: true
-  when: not k8s_lb_lb_cert_file.stat.exists or not k8s_lb_lb_internal_cert_file.stat.exists
+  when: not k8s_lb_lb_cert_file.stat.exists or (internal_apps_fqdn | length > 0 and not k8s_lb_lb_internal_cert_file.stat.exists)
 
 - name: Get cert
   ansible.builtin.command:
     cmd: /root/certbot.sh
+  when: MESHDB_FQDN | length > 0
 
 - name: Get internal cert
   ansible.builtin.command:
     cmd: /root/certbot_tsig.sh
+  when: internal_apps_fqdn | length > 0
 
 - name: Re-apply config template haproxy (because certs should exist)
   ansible.builtin.template:
     src: haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
     mode: "644"
-  when: not k8s_lb_lb_cert_file.stat.exists or not k8s_lb_lb_internal_cert_file.stat.exists
+  when: not k8s_lb_lb_cert_file.stat.exists or (internal_apps_fqdn | length > 0 and not k8s_lb_lb_internal_cert_file.stat.exists)
 
 - name: Reload and enable haproxy service
   ansible.builtin.service:
@@ -201,6 +220,7 @@
     line: "2 1 * * 1   root    bash /root/certbot.sh 2>&1 > /dev/null"
     create: true
     mode: "600"
+  when: MESHDB_FQDN | length > 0
 
 - name: Crontab tsig cert
   ansible.builtin.lineinfile:
@@ -208,6 +228,7 @@
     line: "7 1 * * 1   root    bash /root/certbot_tsig.sh 2>&1 > /dev/null"
     create: true
     mode: "600"
+  when: internal_apps_fqdn | length > 0
 
 - name: Restart and enable cron service
   ansible.builtin.service:
@@ -222,12 +243,14 @@
     owner: dd-agent
     group: dd-agent
     mode: "644"
+  when: DATADOG_API_KEY is not none and (DATADOG_API_KEY | string | trim) != ''
 
 - name: Reload datadog
   ansible.builtin.systemd_service:
     name: datadog-agent
     state: restarted
     enabled: true
+  when: DATADOG_API_KEY is not none and (DATADOG_API_KEY | string | trim) != ''
 
 - name: Remove frr
   ansible.builtin.apt:

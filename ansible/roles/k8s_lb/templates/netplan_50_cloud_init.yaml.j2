@@ -8,7 +8,7 @@ network:
             - {{ inventory_hostname }}/{{ INTERNAL_NETWORK_RANGE }}
             gateway4: {{ MESH_DG }}
             match:
-                macaddress: {{ hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}
+                macaddress: "{{ eth0_macaddress | lower }}"
             nameservers:
                 addresses:
                 - 10.10.10.10
