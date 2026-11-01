@@ -5,7 +5,8 @@ resource "proxmox_vm_qemu" "meshmgr" {
   description = "managment server for mesh services ${var.mesh_env_name}"
   target_node = var.mesh_proxmox_node
 
-  clone = var.mesh_proxmox_template_image
+  clone                = var.mesh_proxmox_template_image
+  start_at_node_boot   = true
 
   cores                   = var.mesh_mgr_cores[count.index]
   sockets                 = 1

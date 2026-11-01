@@ -3,7 +3,8 @@ resource "proxmox_vm_qemu" "k8s-lb" {
   description = "router and lb for k8s"
   target_node = var.mesh_proxmox_node
 
-  clone = var.mesh_proxmox_template_image
+  clone                = var.mesh_proxmox_template_image
+  start_at_node_boot   = true
 
   cores                   = var.mesh_lb_cores
   sockets                 = 1
