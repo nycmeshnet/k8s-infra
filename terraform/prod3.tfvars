@@ -50,6 +50,7 @@ mesh_external_ips = [
 meshdb_fqdn = [
   "pano.nycmesh.net",
   "img.nycmesh.net",
+  "woodpecker.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
