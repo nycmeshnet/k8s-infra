@@ -1,0 +1,43 @@
+apiVersion: openbao.org/v1alpha1
+kind: OpenBaoCluster
+metadata:
+  name: dev-cluster
+  namespace: openbao
+spec:
+  version: "2.6.2"
+  replicas: 1
+  profile: Development
+  controllerJWTMode: Target
+  selfInit:
+    enabled: true
+    oidc:
+      enabled: true
+    requests:
+      - name: create-evaluation-policy
+        operation: update
+        path: sys/policies/acl/dev-evaluation
+        policy:
+          policy: 'path "sys/health" { capabilities = ["read"] }'
+      - name: create-evaluation-role
+        operation: update
+        path: auth/jwt-operator/role/dev-evaluation
+        data:
+          role_type: jwt
+          user_claim: sub
+          bound_audiences: [openbao-evaluation]
+          bound_subject: system:serviceaccount:openbao:dev-cluster-client
+          token_policies: [dev-evaluation]
+          token_ttl: 10m
+  tls:
+    enabled: true
+    mode: OperatorManaged
+    rotationPeriod: "720h"
+  storage:
+    size: "10Gi"
+  deletionPolicy: Retain
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dev-cluster-client
+  namespace: openbao
