@@ -54,4 +54,5 @@ meshdb_fqdn = [
 ]
 
 internal_apps_fqdn = [
+  "bao.mesh.nycmesh.net",
 ]
