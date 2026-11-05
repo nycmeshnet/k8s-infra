@@ -1,7 +1,0 @@
-apiVersion: openbao.org/v1alpha1
-kind: OpenBaoTenant
-metadata:
-  name: openbao
-  namespace: openbao
-spec:
-  targetNamespace: openbao

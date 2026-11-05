@@ -18,3 +18,10 @@ helm upgrade --install "${OPERATOR_RELEASE}" \
 
 Install this chart
 
+
+# Openbao
+
+```
+helm repo add openbao https://openbao.github.io/openbao-helm
+helm install openbao openbao/openbao
+```
