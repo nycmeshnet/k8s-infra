@@ -1,0 +1,182 @@
+# Woodpecker CI - Kubernetes Helm Values
+#
+# GitHub OAuth App Setup:
+#   1. Go to Settings -> Developer Settings -> GitHub Apps -> New OAuth2 App
+#   2. Set Authorization callback URL to: https://<your-woodpecker-host>/authorize
+#   3. Copy Client ID and Client Secret below
+#   4. Store secrets in a Kubernetes secret or use the valueFrom pattern (recommended)
+
+agent:
+  enabled: true
+  replicaCount: 2
+
+  image:
+    registry: docker.io
+    repository: woodpeckerci/woodpecker-agent
+    pullPolicy: IfNotPresent
+    tag: ""
+
+  env:
+    WOODPECKER_SERVER: "woodpecker-server:9000"
+    WOODPECKER_BACKEND: "kubernetes"
+    WOODPECKER_BACKEND_K8S_NAMESPACE: "woodpecker"
+    WOODPECKER_BACKEND_K8S_NAMESPACE_PER_ORGANIZATION: false
+    WOODPECKER_BACKEND_K8S_STORAGE_CLASS: ""
+    WOODPECKER_BACKEND_K8S_VOLUME_SIZE: 10G
+    WOODPECKER_BACKEND_K8S_STORAGE_RWX: true
+    WOODPECKER_BACKEND_K8S_POD_LABELS: ""
+    WOODPECKER_BACKEND_K8S_POD_ANNOTATIONS: ""
+    WOODPECKER_CONNECT_RETRY_COUNT: "1"
+
+  extraSecretNamesForEnvFrom: []
+
+  persistence:
+    enabled: true
+    existingClaim: ""
+    size: 1Gi
+    mountPath: "/etc/woodpecker"
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+
+  extraVolumes: []
+  extraVolumeMounts: []
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    create: true
+    annotations: {}
+    name: ""
+    rbac:
+      create: true
+      role:
+        annotations: {}
+        labels: {}
+      roleBinding:
+        annotations: {}
+        labels: {}
+
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  dnsConfig: {}
+  topologySpreadConstraints: []
+
+server:
+  enabled: true
+
+  statefulSet:
+    annotations: {}
+    labels: {}
+    replicaCount: 1
+    revisionHistoryLimit: 5
+
+  updateStrategy:
+    type: RollingUpdate
+
+  image:
+    registry: docker.io
+    repository: woodpeckerci/woodpecker-server
+    pullPolicy: IfNotPresent
+    tag: ""
+
+  # Server environment variables
+  # GitHub OAuth credentials should be stored in a Kubernetes secret (recommended)
+  env:
+    WOODPECKER_ADMIN: "willnilges"
+    WOODPECKER_HOST: "https://woodpecker.nycmesh.net"
+    WOODPECKER_GITHUB: "true"
+    WOODPECKER_GITHUB_CLIENT: "Ov23li3Jh90XmppAxo3y"
+    WOODPECKER_GITHUB_SECRET: "0e696ffcc52cc827617270ac83feac3563f2c9e1"
+    WOODPECKER_GITHUB_URL: "https://github.com"
+    WOODPECKER_REPO_OWNERS: "nycmeshnet"
+    WOODPECKER_GITHUB_MERGE_REF: "true"
+    WOODPECKER_GITHUB_SKIP_VERIFY: "false"
+    WOODPECKER_GITHUB_PUBLIC_ONLY: "false"
+
+  # Alternative: Use valueFrom to reference Kubernetes secrets (recommended for production)
+  # env:
+  #   WOODPECKER_GITHUB: "true"
+  #   WOODPECKER_GITHUB_CLIENT:
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: woodpecker-github-credentials
+  #         key: client-id
+  #   WOODPECKER_GITHUB_SECRET:
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: woodpecker-github-credentials
+  #         key: client-secret
+
+  extraSecretNamesForEnvFrom: []
+  createAgentSecret: true
+
+  secrets: []
+
+  extraVolumes: []
+  extraVolumeMounts: []
+  initContainers: []
+
+  persistentVolume:
+    enabled: true
+    size: 10Gi
+    mountPath: "/var/lib/woodpecker"
+    storageClass: ""
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    name: ""
+
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+
+  service:
+    type: ClusterIP
+    port: 80
+    clusterIP: ""
+    loadBalancerIP: ""
+
+  ingress:
+    enabled: true
+    annotations: {}
+    ingressClassName: "traefik"
+    hosts:
+      - host: woodpecker.nycmesh.net
+        paths:
+          - path: /
+            pathType: Prefix
+
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  dnsConfig: {}
+  topologySpreadConstraints: []
+
+  probes:
+    liveness:
+      timeoutSeconds: 10
+      periodSeconds: 10
+      successThreshold: 1
+      failureThreshold: 3
+    readiness:
+      timeoutSeconds: 10
+      periodSeconds: 10
+      successThreshold: 1
+      failureThreshold: 3
+
+additionalObjects: []
