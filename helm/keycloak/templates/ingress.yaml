@@ -1,0 +1,27 @@
+{{- range .Values.ingresses}}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace }}
+  annotations:
+    # ingress.kubernetes.io/ssl-redirect: "true"
+    spec.ingressClassName: "traefik"
+spec:
+  entryPoints:
+    {{ .entryPoints | toYaml | nindent 4}}
+  tls:
+    certResolver: letsencrypt
+    domains:
+      {{ .domains | toYaml | nindent 6 }}
+  routes:
+  - match: Host(`{{ .fqdn }}`)
+    kind: Rule
+    services:
+      {{ .services | toYaml | nindent 6 }}
+    #middlewares:
+    #- name: redirect-to-https
+    #  namespace: {{ $.Values.namespace }} 
+
+{{- end }}

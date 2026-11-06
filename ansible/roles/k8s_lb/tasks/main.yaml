@@ -119,6 +119,13 @@
     certbot_main_auth_dns_server: "{{ tsig_main_dns_ip }}"
   when: internal_apps_fqdn | length > 0
 
+- name: Re-create certbot venv (certbot_rfc2136 removes it)
+  ansible.builtin.pip:
+    name: certbot>=2.11.0
+    virtualenv: /root/certbot_venv
+    virtualenv_command: python3 -m venv
+  when: MESHDB_FQDN | length > 0
+
 - name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward

@@ -1,0 +1,83 @@
+app: keycloak
+namespace: keycloak
+
+services:
+- name: keycloak
+  protocol: TCP
+  port: 8080
+  targetDeployment: keycloak
+  addIngress: false
+  fqdn: keycloak.nycmesh.net
+- name: keycloak-admin
+  protocol: TCP
+  port: 8080
+  targetDeployment: keycloak
+  addIngress: true
+  fqdn: keycloak-admin.mesh.nycmesh.net
+  #entryPoints:
+  #  - web
+  #  - websecure
+#- name: keycloak-discovery
+#  targetDeployment: keycloak
+
+ingresses:
+- name: keycloak
+  services:
+  - name: keycloak
+    port: 8080
+  domains:
+  - main: "*.nycmesh.net"
+    sans:
+    - "nycmesh.net"
+  fqdn: keycloak.nycmesh.net
+  entryPoints:
+    - public-http
+    - public-https
+    - web
+    - websecure
+
+middleware:
+  enabled: false
+
+statefulsets:
+- name: keycloak
+  #serviceName: keycloak-discovery
+  replicas: 2
+  image: quay.io/keycloak/keycloak:26.5.2
+  args: ["start", "--hostname", "https://keycloak.nycmesh.net", "--hostname-admin", "https://keycloak-admin.mesh.nycmesh.net"]
+  secretRef: keycloak-secrets
+  ports:
+  - name: http
+    containerPort: 8080
+  - name: jgroups
+    containerPort: 7800
+  - name: jgroups-fd
+    containerPort: 57800
+  startupProbe:
+    httpGet:
+      path: /health/started
+      port: 9000
+    periodSeconds: 1
+    failureThreshold: 600
+  readinessProbe:
+    httpGet:
+      path: /health/ready
+      port: 9000
+    periodSeconds: 10
+    failureThreshold: 3
+  livenessProbe:
+    httpGet:
+      path: /health/live
+      port: 9000
+    periodSeconds: 10
+    failureThreshold: 3
+  securityContext:
+    runAsUser: 2001
+    runAsGroup: 2001
+
+global:
+  namespace: keycloak
+  pv:
+    - name: keycloak
+      path: keycloak/db
+
