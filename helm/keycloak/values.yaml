@@ -75,9 +75,3 @@ statefulsets:
     runAsUser: 2001
     runAsGroup: 2001
 
-global:
-  namespace: keycloak
-  pv:
-    - name: keycloak
-      path: keycloak/db
-
