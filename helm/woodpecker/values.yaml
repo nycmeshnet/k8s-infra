@@ -94,13 +94,12 @@ server:
     WOODPECKER_ADMIN: "willnilges"
     WOODPECKER_HOST: "https://woodpecker.nycmesh.net"
     WOODPECKER_GITHUB: "true"
-    WOODPECKER_GITHUB_CLIENT: "Ov23li3Jh90XmppAxo3y"
-    WOODPECKER_GITHUB_SECRET: "0e696ffcc52cc827617270ac83feac3563f2c9e1"
     WOODPECKER_GITHUB_URL: "https://github.com"
     WOODPECKER_REPO_OWNERS: "nycmeshnet"
     WOODPECKER_GITHUB_MERGE_REF: "true"
     WOODPECKER_GITHUB_SKIP_VERIFY: "false"
-    WOODPECKER_GITHUB_PUBLIC_ONLY: "false"
+    WOODPECKER_GITHUB_PUBLIC_ONLY: "true"
+    WOODPECKER_OPEN: "false"
 
   # Alternative: Use valueFrom to reference Kubernetes secrets (recommended for production)
   # env:
