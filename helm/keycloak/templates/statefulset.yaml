@@ -1,0 +1,43 @@
+{{- range .Values.statefulsets }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: {{ .name }}
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+      - name: {{ .name }}
+        image: {{ .image }}
+
+        args: {{ .args | toYaml | nindent 10 }}
+
+        {{- if .env }}
+        env: {{ .env | toYaml | nindent 10 }}
+        {{- end }}
+
+        {{- if .secretRef }}
+        envFrom:
+          - secretRef:
+              name: {{ .secretRef }}
+        {{- end }}
+
+        ports: {{ .ports | toYaml | nindent 10 }}
+
+        startupProbe: {{ .startupProbe | toYaml | nindent 10 }}
+
+        livenessProbe: {{ .livenessProbe | toYaml | nindent 10 }}
+
+        readinessProbe: {{ .readinessProbe | toYaml | nindent 10 }}
+{{- end }}
