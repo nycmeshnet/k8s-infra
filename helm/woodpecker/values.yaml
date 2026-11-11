@@ -98,7 +98,7 @@ server:
     WOODPECKER_REPO_OWNERS: "nycmeshnet"
     WOODPECKER_GITHUB_MERGE_REF: "true"
     WOODPECKER_GITHUB_SKIP_VERIFY: "false"
-    WOODPECKER_GITHUB_PUBLIC_ONLY: "true"
+    WOODPECKER_GITHUB_PUBLIC_ONLY: "false"
     WOODPECKER_OPEN: "false"
 
   # Alternative: Use valueFrom to reference Kubernetes secrets (recommended for production)
