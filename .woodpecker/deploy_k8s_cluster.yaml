@@ -1,11 +1,16 @@
 when:
   - event: push
     branch: main
+  - event: push
+    branch: wdn/charts-and-ci
   - event: manual
 
 steps:
   - name: deploy
     image: debian:trixie-slim
+    environment:
+      TOKEN_CHOM:
+        from_secret: chom
     commands:
       - echo "This is the build step"
       - apt-get update
@@ -132,3 +137,5 @@ Signed-By:
  -----END PGP PUBLIC KEY BLOCK-----
  EOF
       - sudo apt-get update && sudo apt-get install -y openbao
+      # Time to install things >:)
+      - echo $TOKEN_CHOM
