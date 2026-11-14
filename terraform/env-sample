@@ -1,0 +1,20 @@
+export AWS_ACCESS_KEY_ID=""
+export AWS_SECRET_ACCESS_KEY=""
+export AWS_SESSION_TOKEN=""
+
+export TF_VAR_mesh_local_password=
+export TF_VAR_mesh_proxmox_host=
+export TF_VAR_mesh_proxmox_token_id=
+export TF_VAR_mesh_proxmox_token_secret=
+
+export TF_VAR_k3s_token=
+# Can leave this blank to disable
+export TF_VAR_DATADOG_API_KEY=""
+export TF_VAR_DATADOG_SITE=""
+export TF_VAR_longhorn_passphrase=
+export TF_VAR_tsig_key=""
+# for example
+export TF_VAR_tsig_key_name=k8s.lb.prod3
+export TF_VAR_tsig_main_dns_ip=199.170.132.47
+export BUCKET_TF_STATE=
+export TF_VAR_env_name=
