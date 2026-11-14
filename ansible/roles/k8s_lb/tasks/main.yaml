@@ -43,12 +43,12 @@
 
 - name: Get MAC address for eth0
   ansible.builtin.command: cat /sys/class/net/eth0/address
-  register: eth0_mac_result
+  register: k8s_lb_eth0_mac_result
   changed_when: false
 
 - name: Set eth0 MAC address
   ansible.builtin.set_fact:
-    eth0_macaddress: "{{ eth0_mac_result.stdout | default('') | lower }}"
+    k8s_lb_eth0_macaddress: "{{ k8s_lb_eth0_mac_result.stdout | default('') | lower }}"
 
 - name: Netplan dummy0 interface
   ansible.builtin.template:
