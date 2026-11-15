@@ -75,7 +75,8 @@ jobs:
           # Ubuntu 26.04's AppArmor profile only lets wg read files under /etc/wireguard
           sudo install -d -m 700 /etc/wireguard
           sudo install -m 600 /dev/null /etc/wireguard/privatekey
-          echo "${{ secrets.WIREGUARD_PRIVATE_KEY }}" | sudo tee /etc/wireguard/privatekey > /dev/null          sudo ip link add dev wg0 type wireguard
+          echo "${{ secrets.WIREGUARD_PRIVATE_KEY }}" | sudo tee /etc/wireguard/privatekey > /dev/null
+          sudo ip link add dev wg0 type wireguard
           sudo ip address add dev wg0 ${{ secrets.WIREGUARD_OVERLAY_NETWORK_IP }} peer ${{ secrets.WIREGUARD_PEER }}
           sudo wg set wg0 listen-port 48123 private-key /etc/wireguard/privatekey peer ${{ secrets.WIREGUARD_PEER_PUBLIC_KEY }} allowed-ips 0.0.0.0/0 endpoint ${{ secrets.WIREGUARD_ENDPOINT }}
           sudo ip link set up dev wg0
