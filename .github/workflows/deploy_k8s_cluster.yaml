@@ -80,8 +80,8 @@ jobs:
           sudo ip address add dev wg0 ${{ secrets.WIREGUARD_OVERLAY_NETWORK_IP }} peer ${{ secrets.WIREGUARD_PEER }}
           sudo wg set wg0 listen-port 48123 private-key /etc/wireguard/privatekey peer ${{ secrets.WIREGUARD_PEER_PUBLIC_KEY }} allowed-ips 0.0.0.0/0 endpoint ${{ secrets.WIREGUARD_ENDPOINT }}
           sudo ip link set up dev wg0
-          rm privatekey
-      
+          rm /etc/wireguard/privatekey
+
       - name: Terraform Apply
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > mesh_cluster/mesh${{ vars.ENV_NAME }}
