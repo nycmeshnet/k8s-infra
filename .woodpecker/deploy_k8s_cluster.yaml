@@ -1,8 +1,9 @@
 when:
+  - evaluate: 'TRIGGER_CLUSTER != "true"'
   - event: push
     branch: main
-  - event: push
-    branch: wdn/charts-and-ci
+#  - event: push
+#    branch: wdn/charts-and-ci
   - event: manual
 
 #  TF_VAR_env_name:
