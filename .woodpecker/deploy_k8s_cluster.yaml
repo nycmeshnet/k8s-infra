@@ -72,8 +72,31 @@ steps:
       # Terraform setup / apply
       - cd terraform
       - |
-        echo "bucket = \"$BUCKET_TF_STATE\"" > backend.tfvars
-        echo "key    = \"terraform/state/k8s-infra-$ENV.tfstate\"" >> backend.tfvars
+        cat <<EOF > backend.tfvars
+terraform {
+  backend "s3" {
+    bucket  = "$BUCKET_TF_STATE"
+    key     = "terraform/state/k8s-infra-$ENV.tfstate"
+    region  = "garage"
+
+    access_key = "$AWS_ACCESS_KEY_ID"
+    secret_key = "$AWS_SECRET_ACCESS_KEY_INFRA"
+
+    endpoints = {
+      s3 = "https://img.nycmesh.net"
+    }
+
+    # Lock the state from concurrent modifications
+    use_lockfile = true
+
+    # These settings stop Terraform from AWS-specific checks
+    skip_credentials_validation = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_metadata_api_check     = true
+  }
+}
+EOF
       - terraform init -backend-config=backend.tfvars
       - terraform fmt -check
       - terraform validate
