@@ -52,6 +52,12 @@ steps:
 
       TF_VAR_env_name: ${ENV}
 
+      # SSH Keys (generate these and apply them as secrets)
+      SSH_PRIVATE_KEY:
+        from_secret: ${ENV}-SSH_PRIVATE_KEY
+      SSH_PUBLIC_KEY:
+        from_secret: ${ENV}-SSH_PUBLIC_KEY
+
     commands:
       - echo "Alright chat let's deploy a koobe cluster"
       - apt-get update
@@ -62,3 +68,23 @@ steps:
       - wget -O - https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
       - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
       - apt-get update && apt-get install -y terraform
+
+      # Terraform setup / apply
+      - cd terraform
+      - |
+        echo "bucket = \"$BUCKET_TF_STATE\"" > backend.tfvars
+        echo "key    = \"terraform/state/k8s-infra-$ENV.tfstate\"" >> backend.tfvars
+      - terraform init -backend-config=backend.tfvars
+      - terraform fmt -check
+      - terraform validate
+      - |
+        echo "$SSH_PRIVATE_KEY" > mesh_cluster/mesh$ENV
+        echo "$SSH_PUBLIC_KEY" > mesh_cluster/mesh$ENV.pub
+        chmod 600 mesh_cluster/mesh$ENV
+        chmod 600 mesh_cluster/mesh$ENV.pub
+        terraform apply -auto-approve -input=false -var-file=$ENV.tfvars
+
+      # Run Ansible
+      - cd ../ansible
+      - export PATH="$HOME/.local/bin:$PATH"
+      - sleep 20 && ansible-playbook -i inventory.yaml k8s_infra.yaml -vvvv
