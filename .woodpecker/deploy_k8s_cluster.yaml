@@ -2,8 +2,8 @@ when:
   - evaluate: 'TRIGGER_CLUSTER != "true"'
   - event: push
     branch: main
-#  - event: push
-#    branch: wdn/charts-and-ci
+  - event: push
+    branch: wdn/charts-and-ci
   - event: manual
 
 #  TF_VAR_env_name:
@@ -18,11 +18,11 @@ steps:
     environment:
       # Secrets
       TF_VAR_mesh_proxmox_host:
-        from_secret: ${ENV}-TF_VAR_mesh_proxmox_host
+        from_secret: nycmesh-10-app-02-mesh_proxmox_host
       TF_VAR_mesh_proxmox_token_id:
-        from_secret: ${ENV}-TF_VAR_mesh_proxmox_token_id
+        from_secret: nycmesh-10-app-02-mesh_proxmox_token_id
       TF_VAR_mesh_proxmox_token_secret:
-        from_secret: ${ENV}-TF_VAR_mesh_proxmox_token_secret
+        from_secret: nycmesh-10-app-02-mesh_proxmox_token_secret
 
       # Generate some passwords for these
       TF_VAR_k3s_token:
