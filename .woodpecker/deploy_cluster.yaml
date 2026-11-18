@@ -1,8 +1,0 @@
-when:
-  - evaluate: 'TRIGGER_CLUSTER == "true"'
-
-steps:
-  - name: deploy cluster
-    image: debian:trixie-slim
-    commands:
-      - echo "Alright chat let's deploy a koobe cluster"

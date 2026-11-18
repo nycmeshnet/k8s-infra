@@ -9,9 +9,49 @@ when:
 #  TF_VAR_env_name:
 #    - prod3
 
+matrix:
+  ENV: [prod4]
+
 steps:
   - name: deploy k8s cluster
     image: debian:trixie-slim
+    environment:
+      # Secrets
+      TF_VAR_mesh_proxmox_host:
+        from_secret: ${ENV}-TF_VAR_mesh_proxmox_host
+      TF_VAR_mesh_proxmox_token_id:
+        from_secret: ${ENV}-TF_VAR_mesh_proxmox_token_id
+      TF_VAR_mesh_proxmox_token_secret:
+        from_secret: ${ENV}-TF_VAR_mesh_proxmox_token_secret
+
+      # Generate some passwords for these
+      TF_VAR_k3s_token:
+        from_secret: ${ENV}-TF_VAR_k3s_token
+      TF_VAR_longhorn_passphrase:
+        from_secret: ${ENV}-TF_VAR_longhorn_passphrase
+      TF_VAR_mesh_local_password:
+        from_secret: ${ENV}-TF_VAR_mesh_local_password
+
+      # Required to talk to the DNS to do SSL challenges
+      TF_VAR_tsig_key:
+        from_secret: TF_VAR_tsig_key
+      TF_VAR_tsig_key_name:
+        from_secret: TF_VAR_tsig_key_name
+      TF_VAR_tsig_main_dns_ip:
+        from_secret: TF_VAR_tsig_main_dns_ip
+
+      # Credentials for deployment to AWS
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID_INFRA
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY_INFRA
+
+      # S3 bucket for the Terraform state
+      BUCKET_TF_STATE:
+        from_secret: BUCKET_TF_STATE
+
+      TF_VAR_env_name: ${ENV}
+
     commands:
       - echo "Alright chat let's deploy a koobe cluster"
       - apt-get update
