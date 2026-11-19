@@ -43,7 +43,7 @@ steps:
       # Garage (S3-compatible) credentials for the Terraform state backend
       GARAGE_KEY_ID:
         from_secret: GARAGE_KEY_ID
-      GARAGE_KEY_SECRET:
+      GARAGE_SECRET_KEY:
         from_secret: GARAGE_SECRET_KEY
 
       # Garage bucket for the Terraform state
@@ -74,11 +74,11 @@ steps:
       - |
         # Partial backend config: key = value pairs only (main.tf declares backend "s3")
         cat > backend.tfvars <<EOF
-        bucket     = "$BUCKET_TF_STATE"
+        bucket     = "woodpecker-infra-bucket"
         key        = "terraform/state/k8s-infra-$ENV.tfstate"
         region     = "garage"
         access_key = "$GARAGE_KEY_ID"
-        secret_key = "$GARAGE_KEY_SECRET"
+        secret_key = "$GARAGE_SECRET_KEY"
         endpoints = {
           s3 = "https://img.nycmesh.net"
         }
