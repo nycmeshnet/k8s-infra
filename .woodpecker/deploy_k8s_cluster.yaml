@@ -40,13 +40,13 @@ steps:
       TF_VAR_tsig_main_dns_ip:
         from_secret: TF_VAR_tsig_main_dns_ip
 
-      # Credentials for deployment to AWS
-      AWS_ACCESS_KEY_ID:
-        from_secret: AWS_ACCESS_KEY_ID_INFRA
-      AWS_SECRET_ACCESS_KEY:
-        from_secret: AWS_SECRET_ACCESS_KEY_INFRA
+      # Garage (S3-compatible) credentials for the Terraform state backend
+      GARAGE_KEY_ID:
+        from_secret: GARAGE_KEY_ID
+      GARAGE_KEY_SECRET:
+        from_secret: GARAGE_SECRET_KEY
 
-      # S3 bucket for the Terraform state
+      # Garage bucket for the Terraform state
       BUCKET_TF_STATE:
         from_secret: BUCKET_TF_STATE
 
@@ -72,31 +72,26 @@ steps:
       # Terraform setup / apply
       - cd terraform
       - |
-        cat <<EOF > backend.tfvars
-terraform {
-  backend "s3" {
-    bucket  = "$BUCKET_TF_STATE"
-    key     = "terraform/state/k8s-infra-$ENV.tfstate"
-    region  = "garage"
-
-    access_key = "$AWS_ACCESS_KEY_ID"
-    secret_key = "$AWS_SECRET_ACCESS_KEY_INFRA"
-
-    endpoints = {
-      s3 = "https://img.nycmesh.net"
-    }
-
-    # Lock the state from concurrent modifications
-    use_lockfile = true
-
-    # These settings stop Terraform from AWS-specific checks
-    skip_credentials_validation = true
-    skip_region_validation      = true
-    skip_requesting_account_id  = true
-    skip_metadata_api_check     = true
-  }
-}
-EOF
+        # Partial backend config: key = value pairs only (main.tf declares backend "s3")
+        cat > backend.tfvars <<EOF
+        bucket     = "$BUCKET_TF_STATE"
+        key        = "terraform/state/k8s-infra-$ENV.tfstate"
+        region     = "garage"
+        access_key = "$GARAGE_KEY_ID"
+        secret_key = "$GARAGE_KEY_SECRET"
+        endpoints = {
+          s3 = "https://img.nycmesh.net"
+        }
+        # Garage has no per-bucket subdomains, so the SDK must use path-style requests
+        use_path_style = true
+        # Lock the state from concurrent modifications
+        use_lockfile = true
+        # These settings stop Terraform from doing AWS-specific checks
+        skip_credentials_validation = true
+        skip_region_validation      = true
+        skip_requesting_account_id  = true
+        skip_metadata_api_check     = true
+        EOF
       - terraform init -backend-config=backend.tfvars
       - terraform fmt -check
       - terraform validate
