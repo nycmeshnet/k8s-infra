@@ -22,14 +22,16 @@ variable "k3s_token" {
 
 variable "DATADOG_API_KEY" {
   type        = string
-  description = "datadog API key"
+  description = "datadog API key (optional, empty disables datadog)"
   sensitive   = true
+  default     = ""
 }
 
 variable "DATADOG_SITE" {
   type        = string
-  description = "datadog site url"
+  description = "datadog site url (optional)"
   sensitive   = true
+  default     = ""
 }
 
 variable "mesh_proxmox_node" {

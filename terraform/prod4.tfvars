@@ -1,5 +1,5 @@
 mesh_proxmox_node             = "nycmesh-10-app-01"
-mesh_proxmox_template_image   = "debian-cloud"
+mesh_proxmox_template_image   = "debian-cloud-1"
 mesh_proxmox_storage_location = "local-lvm"
 mesh_env_name                 = "prod4"
 mesh_local_user               = "debian"

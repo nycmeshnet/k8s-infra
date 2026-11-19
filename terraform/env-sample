@@ -8,9 +8,6 @@ export TF_VAR_mesh_proxmox_token_id=
 export TF_VAR_mesh_proxmox_token_secret=
 
 export TF_VAR_k3s_token=
-# Can leave this blank to disable
-export TF_VAR_DATADOG_API_KEY=""
-export TF_VAR_DATADOG_SITE=""
 export TF_VAR_longhorn_passphrase=
 export TF_VAR_tsig_key=""
 # for example
