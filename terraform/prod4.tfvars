@@ -44,7 +44,9 @@ mesh_external_ips = [
   "23.158.16.16",
 ]
 meshdb_fqdn = [
+    "woodpecker-prod4.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
+    "cloud.mesh.nycmesh.net",
 ]
