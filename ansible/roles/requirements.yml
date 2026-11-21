@@ -10,6 +10,6 @@ collections:
   - name: ansible.posix
     version: 2.1.0
   - name: nycmesh.common
-    source: git+https://github.com/nycmeshnet/nycmesh-ansible.git
+    source: git+https://github.com/nycmeshnet/nycmesh-ansible.git,update-python
     type: git
     version: main
