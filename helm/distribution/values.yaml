@@ -1,0 +1,333 @@
+# Default values for distribution.
+# This is a YAML-formatted file.
+
+image:
+  repository: distribution/distribution
+  tag: ""  # defaults to appVersion in Chart.yaml if unset
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+replicaCount: 1
+
+# -- Pod disruption budget
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+  # maxUnavailable: 1
+
+# -- Pod security context
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 65534
+  fsGroup: 65534
+
+# -- Container security context
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+# -- Autoscaling
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+  # customMetrics:
+  #   - type: Pods
+  #     pods:
+  #       metric:
+  #         name: registry_requests_per_second
+  #       target:
+  #         type: AverageValue
+  #         averageValue: 1000
+
+# -- Configuration for the distribution registry
+# See: https://github.com/distribution/distribution/blob/main/cmd/registry/config-example.yml
+config:
+  version: 0.1
+  log:
+    level: info  # debug, info, warn, error, fatal
+    fields:
+      service: registry
+  # accesslog:
+  #   disabled: false
+  #   terminal:
+  #     enabled: true
+  #   file:
+  #     enabled: false
+  #     filename: /var/log/registry/access.log
+  #     format: json
+  # http:
+  #   addr: :5000
+  #   headers:
+  #     X-Content-Type-Options: [nosniff]
+  #   tls:
+  #     enabled: false
+  #     certificate: /etc/registry/tls/tls.crt
+  #     key: /etc/registry/tls/tls.key
+  #     minimumtls: tls1.2
+  #   webauthenabled: false
+  #   debug:
+  #     addr: :5001
+  #     prometheus:
+  #       enabled: true
+  #       metricsinterval: 30s
+  #   drainer:
+  #     offload: false
+  #     retention:
+  #       days: 7
+  #   httpprogressenabled: false
+  # auth:
+  #   htpasswd:
+  #     realm: basic-realm
+  #     path: /etc/registry/auth
+  # storage:
+  #   delete:
+  #     enabled: true
+  #   cache:
+  #     blobdescriptor: inmemory
+  #   maintenance:
+  #     uploadpurging:
+  #       enabled: true
+  #       age: 168h
+  #       interval: 24h
+  #       dryrun: false
+  #   filesystem:
+  #     rootdirectory: /var/lib/registry
+  #   azure:
+  #     accountname:
+  #     accountkey:
+  #     container:
+  #     realm:
+  #   gcs:
+  #     bucket:
+  #     keyfile:
+  #     credentialsfile:
+  #     projectnumber:
+  #     environment:
+  #   s3:
+  #     region:
+  #     regionendpoint:
+  #     bucket:
+  #     accesskey:
+  #     secretkey:
+  #     secure: true
+  #     sslcipheriphersuites:
+  #     multipartcopyminsize: 5GiB
+  #     multipartchunksize: 32MiB
+  #     multipartmaxconcurrency: 100
+  #     multipartchunksize: 32MiB
+  #     rootdirectory: /registry
+  #     storageclass: STANDARD
+  #     s3forcepathstyle: false
+  #     usearc: false
+  #   inmemory:
+  #     # This driver takes no parameters
+  #   tarfile:
+  #     rootdirectory: /var/lib/registry-tarfile
+  #   scaffold:
+  #     rootdirectory: /var/lib/registry-scaffold
+  #   delete:
+  #     enabled: true
+  #   tag:
+  #     concurrencylimit: 8
+  #   archive:
+  #     enabled: false
+  #   redirect:
+  #     disabled: false
+  # health:
+  #   storagedriver:
+  #     enabled: true
+  #     interval: 10s
+  #     threshold: 3
+  #   file:
+  #     - /dev/null
+  #   fsck:
+  #     enabled: false
+  #     interval: 10h
+  #   deprecatedregistryconfig:
+  #     enabled: false
+
+# -- Override config with a raw YAML string (takes precedence over config field above)
+# configOverride: ""
+
+# -- Extra config files to mount as secrets
+# extraConfigFiles:
+#   storage-config.yml: |
+#     ...
+
+# -- Registry configuration as a secret (for sensitive values like auth credentials)
+secretConfig:
+  # Create a secret from the values below and mount it
+  enabled: false
+  # htpasswd:
+  #   realm: basic-realm
+  #   path: /etc/registry/auth.htpasswd
+
+service:
+  type: ClusterIP
+  port: 5000
+  # targetPort: 5000
+  # nodePort: null
+  # hostPort: 5000  # Only set if you need the registry on the host network
+  # annotations: {}
+  # labels: {}
+  # loadBalancerIP: ""
+  # externalTrafficPolicy: ""
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  #   nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  #   nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: registry.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: registry-tls
+  #    hosts:
+  #      - registry.example.com
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  # limits:
+  #   cpu: 500m
+  #   memory: 512Mi
+
+# -- Liveness probe configuration
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+# -- Readiness probe configuration
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+# -- Startup probe configuration
+startupProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 10
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Extra environment variables
+extraEnvs: []
+# - name: FOO
+#   value: bar
+
+# -- Extra environment variables from secrets/configmaps
+extraEnvFrom: []
+# - secretRef:
+#     name: registry-env
+# - configMapRef:
+#     name: registry-env
+
+# -- Extra volumes
+extraVolumes: []
+# - name: docker-certs
+#   secret:
+#     secretName: docker-certs
+
+# -- Extra volume mounts
+extraVolumeMounts: []
+# - name: docker-certs
+#   mountPath: /etc/docker/certs.d
+#   readOnly: true
+
+# -- Extra containers
+extraContainers: []
+# - name: envsidecar
+#   image: busybox
+#   command: ['sh', '-c', 'while true; do echo "still running"; sleep 5; done']
+
+# -- Node selectors
+nodeSelector: {}
+
+# -- Tolerations
+tolerations: []
+
+# -- Affinity
+affinity: {}
+
+# -- Topology spread constraints
+topologySpreadConstraints: []
+# - maxSkew: 1
+#   topologyKey: kubernetes.io/hostname
+#   whenUnsatisfiable: DoNotSchedule
+#   labelSelector:
+#     matchLabels:
+#       app.kubernetes.io/name: distribution
+
+# -- Priority class name
+priorityClassName: ""
+
+# -- Init containers
+initContainers: []
+# - name: init-config
+#   image: busybox
+#   command: ['sh', '-c', 'cp /config/* /etc/registry/']
+#   volumeMounts:
+#     - name: config
+#       mountPath: /config
+#     - name: registry-config
+#       mountPath: /etc/registry
+
+# -- Health check endpoint for the registry
+healthCheckPath: "/"
+
+# -- Metrics endpoint (exposed via debug port)
+metrics:
+  enabled: false
+  service:
+    port: 5001
+    type: ClusterIP
+
+# -- TLS secrets for the registry (if not using ingress)
+tls:
+  enabled: false
+  # secretName: registry-tls  # Must reference an existing secret with tls.crt and tls.key
+
+# -- PVC for registry data
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: ""
+  # annotation: {}
+  # accessMode: ReadWriteOnce
+  mountPath: /var/lib/registry

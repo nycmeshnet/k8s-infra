@@ -48,9 +48,14 @@ mesh_external_ips = [
   "23.158.16.20",
 ]
 meshdb_fqdn = [
+  "api.pano.nycmesh.net",
   "pano.nycmesh.net",
   "img.nycmesh.net",
+  "woodpecker.nycmesh.net",
+  "keycloak.nycmesh.net",
 ]
 
 internal_apps_fqdn = [
+  "bao.mesh.nycmesh.net",
+  "keycloak-admin.mesh.nycmesh.net",
 ]

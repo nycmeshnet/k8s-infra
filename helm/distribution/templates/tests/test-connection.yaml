@@ -1,0 +1,18 @@
+{{- /*
+  Test connection to the registry.
+*/ -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "distribution.fullname" . }}-test-connect"
+  labels:
+    {{- include "distribution.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+      command: ['wget']
+      args: ['--no-check-certificate', '--spider', '-T', '5', 'http://localhost:5000/']
+  restartPolicy: Never

@@ -1,0 +1,21 @@
+{{- /*
+  Registry configuration ConfigMap.
+*/ -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "distribution.fullname" . }}-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "distribution.labels" . | nindent 4 }}
+  {{- with .Values.podAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  config.yml: |
+    {{- if .Values.configOverride }}
+    {{- .Values.configOverride | nindent 4 }}
+    {{- else }}
+    {{- toYaml .Values.config | nindent 4 }}
+    {{- end }}

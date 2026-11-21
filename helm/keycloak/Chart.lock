@@ -1,0 +1,6 @@
+dependencies:
+- name: secondary-storage
+  repository: file://../secondary-storage
+  version: 0.1.0
+digest: sha256:c177cb1718ef7857416d8c843b0957addde3b9547bc94cc6cbc8598eac1259e6
+generated: "2025-12-25T13:00:31.73556111-05:00"
