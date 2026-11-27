@@ -23,6 +23,12 @@
     state: present
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqMvlwLFwGENT5WMjytI2iwVlHPV2TX+gOgBXj9kw4k andrew@localhost"
 
+- name: Add AAL
+  ansible.posix.authorized_key:
+    user: debian
+    state: present
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINf+VPYFVHtP8XJd+fRIh/x3CDkfNiHHcG/GMKU52FS7 aal nycmesh"
+
 - name: Remove stale certbot virtualenv
   ansible.builtin.file:
     path: /root/certbot_venv
@@ -143,7 +149,7 @@
   ansible.builtin.file:
     path: /etc/haproxy/external_ssl
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Copy mastodon PUBLIC cert
   ansible.builtin.copy:
